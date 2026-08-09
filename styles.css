@@ -6,3 +6,50 @@ body.light{--bg:#dce6ed;--surface:rgba(241,247,250,.76);--surface-strong:#f5f9fb
 @media(prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto!important}}
 .bottom-nav{grid-template-columns:repeat(5,1fr)}
 .floating-add{position:fixed;z-index:31;right:max(18px,calc((100vw - 720px)/2 + 18px));bottom:92px;width:54px;height:54px;border:0;border-radius:18px;background:var(--accent);color:#111827;font-size:30px;box-shadow:0 12px 28px color-mix(in srgb,var(--accent) 35%,transparent)}
+
+/* Mobile 2.0: unified information header */
+.unified-header{display:block;padding:13px 14px 9px;margin-bottom:12px;overflow:hidden}
+.header-main{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:10px}
+.header-greeting{min-width:0}.header-greeting h1{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.header-greeting p{white-space:nowrap}
+.header-weather{display:flex;align-items:center;gap:7px;min-width:0;padding:7px 9px;border:1px solid var(--line);border-radius:14px;background:rgba(7,15,22,.25)}
+.header-weather .weather-icon{font-size:25px;line-height:1}.header-weather strong{display:block;font-size:12px;white-space:nowrap}.header-weather small{display:block;max-width:116px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.unified-header .top-actions{gap:6px}.unified-header .icon-button{width:40px;height:40px;border-radius:13px}
+.unified-header .date-strip{margin:9px 0 0;padding-top:8px;border-top:1px solid var(--line);gap:3px}
+.unified-header .date-strip button{min-height:42px;padding:5px 1px;border-radius:13px}.unified-header .date-strip button span{font-size:8px}.unified-header .date-strip button strong{font-size:13px;margin-top:2px}
+
+/* More: an even, intentional vertical rhythm */
+.view[data-view="more"].active{display:grid;gap:13px}.view[data-view="more"]>.panel,.view[data-view="more"]>.more-grid{margin:0}
+.more-title{margin:2px 3px 0;min-height:43px;align-items:end}.more-title>div{display:flex;align-items:baseline;gap:9px}.more-title h2{font-size:24px}.more-title>span{color:var(--muted);font-size:11px;padding-bottom:4px}
+.more-grid{gap:10px}.more-button{margin:0}.portal-grid{margin-top:12px}
+
+/* Route stops: separate identity, school, street and locality */
+.route-stop-list{display:grid;gap:10px}.route-stop{grid-template-columns:38px minmax(0,1fr);align-items:start;padding:13px}
+.route-stop b{width:34px;height:34px}.route-stop div{min-width:0}.route-stop strong,.route-stop span,.route-stop small,.route-stop em,.route-stop i{display:block;overflow-wrap:anywhere;word-break:normal;letter-spacing:normal;font-style:normal}
+.route-stop strong{font-size:15px;line-height:1.2}.route-stop span{font-size:11px;color:var(--text);margin-top:4px}.route-stop small{font-size:10px;line-height:1.35;color:var(--muted);margin-top:3px}.route-stop em{font-size:9px;color:var(--muted);margin-top:2px}
+.route-intro{margin-bottom:0}
+
+/* Native-looking checks without the WebKit black-square artifact */
+input[type="checkbox"]{-webkit-appearance:none;appearance:none;display:inline-grid;place-content:center;flex:0 0 auto;width:25px;height:25px;min-height:25px;padding:0;border:1px solid var(--line);border-radius:999px;background:rgba(5,12,18,.45)}
+input[type="checkbox"]:checked{background:var(--accent);border-color:var(--accent)}input[type="checkbox"]:checked:after{content:"\2713";color:#101722;font-size:16px;font-weight:900;line-height:1}
+
+/* Lists stay legible as they grow */
+.list-results{margin-top:12px;border:1px solid var(--line);border-radius:18px;padding:11px;background:rgba(7,15,22,.26)}
+.list-results-heading{display:flex;align-items:center;justify-content:space-between;color:var(--muted);font-size:9px;letter-spacing:.13em;font-weight:800;padding:2px 3px 8px;border-bottom:1px solid var(--line)}
+.list-results .check-list{max-height:48dvh;overflow:auto;overscroll-behavior:contain;padding-right:1px}
+
+/* Device-local appearance editor */
+.appearance-form,.appearance-section{display:grid;gap:10px}.appearance-section{padding:13px;border:1px solid var(--line);border-radius:18px;background:rgba(7,15,22,.24)}
+.appearance-section label:not(.toggle-row){display:grid;gap:6px;color:var(--muted);font-size:10px;font-weight:700}.appearance-section input,.appearance-section select{width:100%}
+.setting-label{font-size:9px;letter-spacing:.15em;color:var(--muted);font-weight:900}.accent-row{display:flex;gap:10px;flex-wrap:wrap}.accent-row button{width:38px;height:38px;border-radius:13px;border:2px solid transparent;background:var(--swatch);box-shadow:inset 0 1px rgba(255,255,255,.35)}.accent-row button.active{border-color:var(--text);box-shadow:0 0 0 3px color-mix(in srgb,var(--swatch) 25%,transparent)}.local-note{line-height:1.5;text-align:center}
+
+/* Glass and background choices affect mobile only */
+body[data-glass="clear"]{--blur:14px;--surface:rgba(18,29,40,.54)}body[data-glass="frosted"]{--blur:32px;--surface:rgba(18,29,40,.84)}body[data-glass="solid"]{--blur:0px;--surface:rgba(17,29,40,.97)}
+body[data-glass="clear"] .glass{background:linear-gradient(145deg,rgba(39,57,73,.55),rgba(12,22,31,.48))}body[data-glass="frosted"] .glass{background:linear-gradient(145deg,rgba(43,58,72,.86),rgba(13,23,32,.82))}body[data-glass="solid"] .glass{background:var(--surface-strong);backdrop-filter:none;-webkit-backdrop-filter:none}
+body[data-background="ocean"] .backdrop{background:radial-gradient(circle at 82% 6%,#135c87 0,transparent 37%),linear-gradient(155deg,#06141e,#0a2e48 58%,#11324a)}body[data-background="berry"] .backdrop{background:radial-gradient(circle at 85% 8%,#723e76 0,transparent 39%),radial-gradient(circle at 0 82%,#593046 0,transparent 42%),linear-gradient(155deg,#160e22,#2c1839 58%,#371b37)}body[data-background="graphite"] .backdrop{background:radial-gradient(circle at 75% 12%,#39444d 0,transparent 38%),linear-gradient(155deg,#090d10,#161c21 60%,#20262a)}
+body.mobile-large-text{font-size:112%}body.mobile-reduce-motion *,body.mobile-reduce-motion *:before,body.mobile-reduce-motion *:after{animation-duration:.001ms!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+
+/* Keep the quick add button clear of the home indicator and nav */
+.floating-add{bottom:calc(91px + env(safe-area-inset-bottom));right:max(18px,calc((100vw - 720px)/2 + 18px))}.bottom-nav{bottom:max(8px,env(safe-area-inset-bottom))}
+
+/* iPhone 16 Pro Max and nearby Dynamic Island sizes */
+@media(min-width:400px) and (max-width:450px){.app-shell{padding-left:12px;padding-right:12px}.unified-header{padding:12px 12px 8px}.header-main{gap:7px}.header-weather{padding:6px 7px}.header-weather small{display:none}.header-weather strong{font-size:11px}.unified-header .top-actions{gap:5px}.unified-header .icon-button{width:38px;height:38px}.unified-header .date-strip{margin-top:8px;padding-top:7px}.unified-header .date-strip button{min-height:40px}.more-button{min-height:84px}.floating-add{bottom:calc(101px + env(safe-area-inset-bottom));right:18px}.bottom-nav{height:75px}}

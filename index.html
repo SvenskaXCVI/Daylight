@@ -15,15 +15,13 @@
 <body>
   <div class="backdrop"></div>
   <div id="app" class="app-shell">
-    <header class="topbar glass">
-      <div><small id="eyebrow">DAYLIGHT MOBILE</small><h1 id="greeting">Good morning.</h1><p id="dateLine"></p></div>
-      <div class="top-actions"><button id="syncButton" class="icon-button" aria-label="Sync status"><span id="syncDot"></span><svg viewBox="0 0 24 24"><path d="M20 7h-6V1M4 17h6v6M18.5 9A7 7 0 0 0 6.2 5.5L4 7m2 8a7 7 0 0 0 12.3 3.5L20 17"/></svg></button><button id="notifyButton" class="icon-button" aria-label="Notifications"><svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg><b id="noticeCount" hidden>0</b></button></div>
+    <header class="topbar unified-header glass">
+      <div class="header-main"><div class="header-greeting"><small id="eyebrow">DAYLIGHT MOBILE</small><h1 id="greeting">Good morning.</h1><p id="dateLine"></p></div><div class="header-weather"><span id="weatherIcon" class="weather-icon">◌</span><div><strong id="weatherNow">Weather updating</strong><small id="weatherAdvice">Checking forecast…</small></div></div><div class="top-actions"><button id="syncButton" class="icon-button" aria-label="Sync status"><span id="syncDot"></span><svg viewBox="0 0 24 24"><path d="M20 7h-6V1M4 17h6v6M18.5 9A7 7 0 0 0 6.2 5.5L4 7m2 8a7 7 0 0 0 12.3 3.5L20 17"/></svg></button><button id="notifyButton" class="icon-button" aria-label="Notifications"><svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg><b id="noticeCount" hidden>0</b></button></div></div>
+      <div id="dateStrip" class="date-strip" aria-label="Select day"></div>
     </header>
 
     <main id="main">
       <section class="view active" data-view="today">
-        <div class="weather-card glass"><div><small>CASTRO VALLEY</small><strong id="weatherNow">Weather updating</strong><span id="weatherAdvice">Checking the school-day forecast…</span></div><div id="weatherIcon" class="weather-icon">◌</div></div>
-        <div id="dateStrip" class="date-strip" aria-label="Select day"></div>
         <section><div class="section-title"><div><small>THE SCHOOL DAY</small><h2>Everyone at a glance</h2></div><button class="text-button" data-go="calendar">Calendar</button></div><div id="studentCards" class="student-cards"></div></section>
         <section class="glass panel"><div class="section-title compact"><div><small>CALENDAR EVENTS</small><h2>Today’s events</h2></div><button class="round-add" data-quick="event">+</button></div><div id="todayEvents" class="event-list"></div></section>
       </section>
@@ -38,7 +36,7 @@
       <section class="view" data-view="tasks">
         <div class="page-title"><div><small>FAMILY ORGANIZER</small><h2>Lists for today</h2></div><input id="taskDate" type="date"></div>
         <div class="segmented"><button class="active" data-list-tab="todo">To do</button><button data-list-tab="grocery">Groceries</button><button data-list-tab="suggestions">Suggestions</button></div>
-        <section class="glass panel list-panel" data-list-panel="todo"><form id="todoForm" class="quick-form"><input name="title" placeholder="What needs to get done?" required><select name="owner"></select><button>+</button></form><div id="todoList" class="check-list"></div></section>
+        <section class="glass panel list-panel" data-list-panel="todo"><form id="todoForm" class="quick-form"><input name="title" placeholder="What needs to get done?" required><select name="owner"></select><button>+</button></form><div class="list-results"><div class="list-results-heading"><span>ALL TO-DO ITEMS</span><b id="todoCount">0</b></div><div id="todoList" class="check-list"></div></div></section>
         <section class="glass panel list-panel" data-list-panel="grocery" hidden><form id="groceryForm" class="quick-form grocery"><input name="title" placeholder="Add a grocery item" required><input name="quantity" placeholder="Qty"><button>+</button></form><div id="groceryList" class="check-list"></div></section>
         <section class="glass panel list-panel" data-list-panel="suggestions" hidden><div id="suggestionList" class="suggestion-list"></div></section>
       </section>
@@ -46,7 +44,7 @@
       <section class="view" data-view="agenda"><div class="page-title"><div><small>UPCOMING</small><h2>Your family agenda</h2></div><div class="segmented tiny"><button class="active" data-days="7">7 days</button><button data-days="30">30 days</button></div></div><div id="agendaList" class="agenda-list"></div></section>
 
       <section class="view" data-view="more">
-        <div class="page-title"><div><small>DAYLIGHT</small><h2>More</h2></div></div>
+        <div class="page-title more-title"><div><small>DAYLIGHT</small><h2>More</h2></div><span>Personalize and connect</span></div>
         <section class="glass panel"><div class="section-title compact"><div><small>ASK DAYLIGHT</small><h2>Your family assistant</h2></div></div><form id="assistantForm" class="assistant-form"><textarea name="prompt" placeholder="Try “Add Kacey dentist Monday at 3 PM”"></textarea><button>Ask Daylight</button></form><div id="assistantReply" class="assistant-reply">I can add events and list items, find schedules, and summarize the day.</div></section>
         <div class="more-grid">
           <button class="glass more-button" data-sheet="route"><span>↗</span><div><strong>School route</strong><small>Addresses and morning order</small></div></button>
