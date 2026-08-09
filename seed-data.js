@@ -88,7 +88,7 @@ const defaults = {
     ],
     refreshMinutes:15,returnHome:false,mapTheme:"auto"
   },
-  syncSettings:{endpoint:"",pairingCode:"",deviceId:""},
+  syncSettings:{endpoint:"wss://daylight-sync-relay.onrender.com",pairingCode:"",deviceId:""},
   bellSchedules: {
     kacey: {
       1: [
