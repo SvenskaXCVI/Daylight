@@ -72,3 +72,7 @@ body.light .backdrop:after{background:rgba(245,250,252,.12)}
 /* Preserve the full greeting on iPhone-sized screens */
 @media(max-width:450px){.header-main{grid-template-columns:minmax(140px,1fr) minmax(0,140px) auto}.header-greeting h1{font-size:18px;letter-spacing:-.025em}.header-greeting p{font-size:10px}.header-greeting>small{font-size:8px}.header-weather{min-width:0}.header-weather strong{max-width:96px;overflow:hidden;text-overflow:ellipsis}.more-title>span{max-width:170px;text-align:right}}
 @media(max-width:390px){.header-main{grid-template-columns:minmax(110px,1fr) minmax(0,126px) auto}.header-greeting h1{font-size:16px}.header-weather strong{max-width:82px}.unified-header .icon-button{width:36px;height:36px}}
+
+/* Compact weather: temperature over location, never wider than its grid cell */
+@media(max-width:450px){.header-weather{width:100%;max-width:140px;overflow:hidden;padding:6px 8px}.header-weather .weather-icon{flex:0 0 auto;font-size:22px}.header-weather>div{min-width:0}.header-weather strong{max-width:none;font-size:12px;line-height:1.05}.header-weather small{display:block;max-width:88px;font-size:8px;line-height:1.25;letter-spacing:.02em;text-transform:none;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}}
+@media(max-width:390px){.header-weather{max-width:126px}.header-weather small{max-width:74px}}
