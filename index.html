@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0b1219">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Daylight Mobile</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/daylight-icon.png">
+  <link rel="apple-touch-icon" href="icons/daylight-icon.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="backdrop"></div>
+  <div id="app" class="app-shell">
+    <header class="topbar glass">
+      <div><small id="eyebrow">DAYLIGHT MOBILE</small><h1 id="greeting">Good morning.</h1><p id="dateLine"></p></div>
+      <div class="top-actions"><button id="syncButton" class="icon-button" aria-label="Sync status"><span id="syncDot"></span><svg viewBox="0 0 24 24"><path d="M20 7h-6V1M4 17h6v6M18.5 9A7 7 0 0 0 6.2 5.5L4 7m2 8a7 7 0 0 0 12.3 3.5L20 17"/></svg></button><button id="notifyButton" class="icon-button" aria-label="Notifications"><svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg><b id="noticeCount" hidden>0</b></button></div>
+    </header>
+
+    <main id="main">
+      <section class="view active" data-view="today">
+        <div class="weather-card glass"><div><small>CASTRO VALLEY</small><strong id="weatherNow">Weather updating</strong><span id="weatherAdvice">Checking the school-day forecast…</span></div><div id="weatherIcon" class="weather-icon">◌</div></div>
+        <div id="dateStrip" class="date-strip" aria-label="Select day"></div>
+        <section><div class="section-title"><div><small>THE SCHOOL DAY</small><h2>Everyone at a glance</h2></div><button class="text-button" data-go="calendar">Calendar</button></div><div id="studentCards" class="student-cards"></div></section>
+        <section class="glass panel"><div class="section-title compact"><div><small>CALENDAR EVENTS</small><h2>Today’s events</h2></div><button class="round-add" data-quick="event">+</button></div><div id="todayEvents" class="event-list"></div></section>
+      </section>
+
+      <section class="view" data-view="calendar">
+        <div class="page-title"><div><small>FAMILY CALENDAR</small><h2 id="calendarTitle"></h2></div><div><button id="prevMonth" class="icon-button">‹</button><button id="nextMonth" class="icon-button">›</button></div></div>
+        <div id="calendarFilters" class="filter-row"></div>
+        <div class="glass calendar-card"><div class="weekday-row"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div><div id="calendarGrid" class="calendar-grid"></div></div>
+        <div id="selectedDayPanel" class="glass panel"></div>
+      </section>
+
+      <section class="view" data-view="tasks">
+        <div class="page-title"><div><small>FAMILY ORGANIZER</small><h2>Lists for today</h2></div><input id="taskDate" type="date"></div>
+        <div class="segmented"><button class="active" data-list-tab="todo">To do</button><button data-list-tab="grocery">Groceries</button><button data-list-tab="suggestions">Suggestions</button></div>
+        <section class="glass panel list-panel" data-list-panel="todo"><form id="todoForm" class="quick-form"><input name="title" placeholder="What needs to get done?" required><select name="owner"></select><button>+</button></form><div id="todoList" class="check-list"></div></section>
+        <section class="glass panel list-panel" data-list-panel="grocery" hidden><form id="groceryForm" class="quick-form grocery"><input name="title" placeholder="Add a grocery item" required><input name="quantity" placeholder="Qty"><button>+</button></form><div id="groceryList" class="check-list"></div></section>
+        <section class="glass panel list-panel" data-list-panel="suggestions" hidden><div id="suggestionList" class="suggestion-list"></div></section>
+      </section>
+
+      <section class="view" data-view="agenda"><div class="page-title"><div><small>UPCOMING</small><h2>Your family agenda</h2></div><div class="segmented tiny"><button class="active" data-days="7">7 days</button><button data-days="30">30 days</button></div></div><div id="agendaList" class="agenda-list"></div></section>
+
+      <section class="view" data-view="more">
+        <div class="page-title"><div><small>DAYLIGHT</small><h2>More</h2></div></div>
+        <section class="glass panel"><div class="section-title compact"><div><small>ASK DAYLIGHT</small><h2>Your family assistant</h2></div></div><form id="assistantForm" class="assistant-form"><textarea name="prompt" placeholder="Try “Add Kacey dentist Monday at 3 PM”"></textarea><button>Ask Daylight</button></form><div id="assistantReply" class="assistant-reply">I can add events and list items, find schedules, and summarize the day.</div></section>
+        <div class="more-grid">
+          <button class="glass more-button" data-sheet="route"><span>↗</span><div><strong>School route</strong><small>Addresses and morning order</small></div></button>
+          <button class="glass more-button" data-sheet="health"><span>✚</span><div><strong>Health</strong><small>Medication and appointments</small></div></button>
+          <button class="glass more-button" data-sheet="connections"><span>⌁</span><div><strong>Connections</strong><small>Desktop sync and services</small></div></button>
+          <button class="glass more-button" data-sheet="appearance"><span>◐</span><div><strong>Appearance</strong><small>Theme and accessibility</small></div></button>
+        </div>
+        <section class="glass panel"><div class="section-title compact"><div><small>FAMILY PORTALS</small><h2>School and health</h2></div></div><div class="portal-grid"><a href="https://castrovalleyusd.asp.aeries.net/student/LoginParent.aspx?page=default.aspx">Aeries</a><a href="https://www.parentsquare.com">ParentSquare</a><a href="https://mychart.stanfordchildrens.org/MyChart/Authentication/Login">MyChart</a></div></section>
+      </section>
+    </main>
+
+    <nav class="bottom-nav glass" aria-label="Main navigation">
+      <button class="active" data-nav="today"><svg viewBox="0 0 24 24"><path d="M4 5h16v15H4zM8 3v4m8-4v4M4 9h16"/></svg><span>Today</span></button>
+      <button data-nav="calendar"><svg viewBox="0 0 24 24"><path d="M4 5h16v15H4zM8 3v4m8-4v4M4 9h16"/><path d="M8 13h2m4 0h2m-8 4h2m4 0h2"/></svg><span>Calendar</span></button>
+      <button data-nav="agenda"><svg viewBox="0 0 24 24"><path d="M5 6h14M5 12h14M5 18h14M3 6h.01M3 12h.01M3 18h.01"/></svg><span>Agenda</span></button>
+      <button data-nav="tasks"><svg viewBox="0 0 24 24"><path d="m4 7 2 2 4-4M12 7h8M4 15l2 2 4-4m2 2h8"/></svg><span>Lists</span></button>
+      <button data-nav="more"><svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></svg><span>More</span></button>
+    </nav>
+    <button class="floating-add" data-quick="event" aria-label="Quick add event">+</button>
+  </div>
+
+  <div id="sheetBackdrop" class="sheet-backdrop" hidden></div>
+  <aside id="sheet" class="sheet glass" aria-modal="true" hidden><div class="sheet-handle"></div><header><div><small id="sheetEyebrow"></small><h2 id="sheetTitle"></h2></div><button id="closeSheet" class="icon-button">×</button></header><div id="sheetBody" class="sheet-body"></div></aside>
+  <div id="toast" class="toast" hidden></div>
+  <script src="seed-data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
