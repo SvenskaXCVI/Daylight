@@ -53,3 +53,22 @@ body.mobile-large-text{font-size:112%}body.mobile-reduce-motion *,body.mobile-re
 
 /* iPhone 16 Pro Max and nearby Dynamic Island sizes */
 @media(min-width:400px) and (max-width:450px){.app-shell{padding-left:12px;padding-right:12px}.unified-header{padding:12px 12px 8px}.header-main{gap:7px}.header-weather{padding:6px 7px}.header-weather small{display:none}.header-weather strong{font-size:11px}.unified-header .top-actions{gap:5px}.unified-header .icon-button{width:38px;height:38px}.unified-header .date-strip{margin-top:8px;padding-top:7px}.unified-header .date-strip button{min-height:40px}.more-button{min-height:84px}.floating-add{bottom:calc(101px + env(safe-area-inset-bottom));right:18px}.bottom-nav{height:75px}}
+
+/* Mobile polish: prevent form controls from escaping their rows */
+.appearance-section input[type="checkbox"]{width:25px;max-width:25px;height:25px;min-height:25px;margin:0;padding:0}
+.appearance-section .toggle-row{display:grid;grid-template-columns:minmax(0,1fr) 25px;gap:14px;width:100%;min-width:0}
+.appearance-section .toggle-row input{justify-self:end}
+
+/* A genuinely light liquid-glass palette */
+body.light .glass{background:linear-gradient(145deg,rgba(255,255,255,.78),rgba(225,236,244,.68));border-color:rgba(42,64,79,.2);box-shadow:0 14px 38px rgba(45,68,84,.14),inset 0 1px rgba(255,255,255,.92)}
+body.light[data-glass="clear"] .glass{background:linear-gradient(145deg,rgba(255,255,255,.62),rgba(225,237,245,.52))}
+body.light[data-glass="frosted"] .glass{background:linear-gradient(145deg,rgba(255,255,255,.9),rgba(224,235,242,.84))}
+body.light[data-glass="solid"] .glass{background:#f4f8fa}
+body.light .header-weather,body.light .status-pill,body.light .event-item,body.light .agenda-item,body.light .check-item,body.light .suggestion,body.light .assistant-reply,body.light .list-results,body.light .appearance-section{background:rgba(255,255,255,.56)}
+body.light .more-button>span{background:rgba(42,67,84,.1)}
+body.light .bottom-nav{background:rgba(244,249,252,.88)}
+body.light .backdrop:after{background:rgba(245,250,252,.12)}
+
+/* Preserve the full greeting on iPhone-sized screens */
+@media(max-width:450px){.header-main{grid-template-columns:minmax(140px,1fr) minmax(0,140px) auto}.header-greeting h1{font-size:18px;letter-spacing:-.025em}.header-greeting p{font-size:10px}.header-greeting>small{font-size:8px}.header-weather{min-width:0}.header-weather strong{max-width:96px;overflow:hidden;text-overflow:ellipsis}.more-title>span{max-width:170px;text-align:right}}
+@media(max-width:390px){.header-main{grid-template-columns:minmax(110px,1fr) minmax(0,126px) auto}.header-greeting h1{font-size:16px}.header-weather strong{max-width:82px}.unified-header .icon-button{width:36px;height:36px}}
