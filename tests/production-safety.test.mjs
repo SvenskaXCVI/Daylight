@@ -23,7 +23,10 @@ const html=fs.readFileSync(new URL('index.html',root),'utf8');
 const appSource=fs.readFileSync(new URL('app.js',root),'utf8');
 assert.equal(forbidden.test(`${html}\n${appSource}`),false,'public mobile bundle must not contain private legacy-family data');
 for(const id of ['onboarding','onboardingChoices','createFamilyForm','joinFamilyForm'])assert.match(html,new RegExp(`id=["']${id}["']`));
+for(const id of ['scheduleImageFiles','attachScheduleImages','scheduleImportOwner','scheduleImportResult'])assert.match(html,new RegExp(`id=["']${id}["']`));
 assert.match(appSource,/encrypted:await encryptSyncPayload/,'mobile sync payloads must be end-to-end encrypted');
 assert.match(appSource,/syncTombstones/,'mobile sync must propagate deletions');
+assert.match(appSource,/if\(!saved\?\.profile\?\.setupComplete\)return mergeSeed/,'unconfigured devices must discard stale family records');
+assert.match(appSource,/applyImportedSchedule/,'schedule imports must require an explicit apply step');
 
 console.log('Daylight production-safety checks passed.');

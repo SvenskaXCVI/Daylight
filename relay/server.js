@@ -2,7 +2,38 @@ import http from 'node:http';
 import {WebSocketServer,WebSocket} from 'ws';
 
 const port=Number(process.env.PORT||8080);
-const server=http.createServer((req,res)=>{res.writeHead(200,{'content-type':'application/json','access-control-allow-origin':'*'});res.end(JSON.stringify({service:'Daylight Sync Relay',status:'online'}));});
+const cors={'content-type':'application/json','access-control-allow-origin':'*','access-control-allow-methods':'GET,POST,OPTIONS','access-control-allow-headers':'content-type'};
+function json(res,status,value){res.writeHead(status,cors);res.end(JSON.stringify(value))}
+function readJson(req,limit=24*1024*1024){return new Promise((resolve,reject)=>{let size=0,body='';req.on('data',chunk=>{size+=chunk.length;if(size>limit){reject(Error('too-large'));req.destroy();return}body+=chunk});req.on('end',()=>{try{resolve(JSON.parse(body||'{}'))}catch{reject(Error('invalid-json'))}});req.on('error',reject)})}
+const scheduleSchema={
+  type:'object',additionalProperties:false,required:['studentName','school','notes','schedules'],
+  properties:{
+    studentName:{type:'string'},school:{type:'string'},notes:{type:'string'},
+    schedules:{type:'array',items:{
+      type:'object',additionalProperties:false,required:['name','weekdays','dates','rows'],
+      properties:{
+        name:{type:'string'},
+        weekdays:{type:'array',items:{type:'integer',minimum:1,maximum:5}},
+        dates:{type:'array',items:{type:'string',pattern:'^\\d{4}-\\d{2}-\\d{2}$'}},
+        rows:{type:'array',items:{type:'object',additionalProperties:false,required:['title','start','end'],properties:{title:{type:'string'},start:{type:'string',pattern:'^([01]\\d|2[0-3]):[0-5]\\d$'},end:{type:'string',pattern:'^([01]\\d|2[0-3]):[0-5]\\d$'}}}}
+      }
+    }}
+  }
+};
+async function parseSchedule(req,res){
+  if(!process.env.OPENAI_API_KEY)return json(res,503,{error:'Schedule import is not configured on this relay.'});
+  try{
+    const body=await readJson(req),roomId=String(body.roomId||'').toLowerCase(),images=Array.isArray(body.images)?body.images.slice(0,5):[];
+    if(!/^[a-f0-9]{64}$/.test(roomId)||!rooms.has(roomId))return json(res,403,{error:'Connect Daylight to your family before importing a schedule.'});
+    if(!images.length||images.some(image=>!/^data:image\/(png|jpeg|webp);base64,/i.test(image)||image.length>8_500_000))return json(res,400,{error:'Choose up to five PNG, JPEG, or WebP images.'});
+    const prompt=`Read the attached school bell schedule image(s). Extract only information visibly supported by the images. The intended child is ${String(body.studentName||'unspecified')}. Preserve distinct regular, weekday, block, minimum-day, and dated special schedules. Use weekday numbers 1=Monday through 5=Friday. Use 24-hour HH:MM times. Put explicit dates in dates; use weekdays only for recurring schedules. Do not guess unreadable values; explain uncertainty in notes.`;
+    const response=await fetch('https://api.openai.com/v1/responses',{method:'POST',headers:{authorization:`Bearer ${process.env.OPENAI_API_KEY}`,'content-type':'application/json'},body:JSON.stringify({model:process.env.OPENAI_SCHEDULE_MODEL||'gpt-5.6-terra',input:[{role:'user',content:[{type:'input_text',text:prompt},...images.map(image_url=>({type:'input_image',image_url}))]}],text:{format:{type:'json_schema',name:'daylight_bell_schedule',strict:true,schema:scheduleSchema}}})});
+    const data=await response.json();if(!response.ok)throw Error(data.error?.message||'AI request failed');
+    const outputText=data.output?.flatMap(item=>item.content||[]).find(item=>item.type==='output_text')?.text;
+    if(!outputText)throw Error('No schedule was returned');return json(res,200,{schedule:JSON.parse(outputText)});
+  }catch(error){return json(res,error.message==='too-large'?413:500,{error:error.message==='too-large'?'Images are too large.':String(error.message||'Schedule import failed.')})}
+}
+const server=http.createServer(async(req,res)=>{if(req.method==='OPTIONS')return json(res,204,{});if(req.method==='POST'&&req.url==='/api/parse-schedule')return parseSchedule(req,res);return json(res,200,{service:'Daylight Sync Relay',status:'online',scheduleImport:Boolean(process.env.OPENAI_API_KEY)});});
 const wss=new WebSocketServer({server});
 const rooms=new Map();
 

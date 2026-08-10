@@ -4,8 +4,9 @@ Daylight Mobile is the installable phone companion to the Daylight desktop famil
 
 ## Included
 
-- Today dashboard with all three students, leave-by and pickup details, current class/passing status, and full expandable bell schedules
+- Today dashboard for the children a family adds, with leave-by and pickup details, current class/passing status, and full expandable bell schedules
 - Regular and special bell schedules from the desktop source of truth
+- Confirmation-based bell-schedule import from screenshots and photos through Daylight Assistant
 - Family month calendar, daily detail, important and medical events
 - Seven- or 30-day agenda
 - To-do and grocery lists with on-device habit suggestions
@@ -33,6 +34,8 @@ GitHub Pages cannot host a persistent WebSocket server. The small server in `rel
 4. Changes are saved locally first and synchronize whenever both devices can reach the relay.
 
 The relay does not store family data; it only forwards encrypted-in-transit WebSocket messages between devices with the same pairing code. For internet-facing production use, put it behind HTTPS, use a long random pairing code, restrict origins, add rate limiting, and add authenticated device enrollment.
+
+Schedule screenshot import additionally requires an `OPENAI_API_KEY` environment variable on the relay. Images are accepted only after the user chooses them, are processed in memory for extraction, and are not stored by the relay.
 
 ## Privacy and limitations
 

@@ -6,7 +6,7 @@ Daylight is a private family organizer for schedules, school information, tasks,
 
 ## Information Daylight handles
 
-Daylight may contain information you enter, including family member names, calendar events, tasks, grocery items, school addresses, health reminders, and app preferences. A new installation contains no family information.
+Daylight may contain information you enter, including family member names, calendar events, tasks, grocery items, school addresses, health reminders, and app preferences. A new installation contains no family information. If you choose schedule screenshot import, the selected images may contain student and school information.
 
 ## Storage and synchronization
 
@@ -14,7 +14,7 @@ On-device preferences and family data are stored locally. If you choose to link 
 
 ## Third-party services
 
-Features you choose to use may contact Open-Meteo for weather, OpenStreetMap/Nominatim/OSRM for maps and routing, TomTom for optional traffic information, and family portals you explicitly open. Those providers process network requests according to their own privacy policies. Daylight does not sell personal information or use it for advertising.
+Features you choose to use may contact Open-Meteo for weather, OpenStreetMap/Nominatim/OSRM for maps and routing, TomTom for optional traffic information, and family portals you explicitly open. Schedule screenshot import sends only images you explicitly select to the Daylight relay and OpenAI for extraction. The relay processes those images in memory and does not store them. Those providers process network requests according to their own privacy policies. Daylight does not sell personal information or use it for advertising.
 
 ## Children and health information
 
