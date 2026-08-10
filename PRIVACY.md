@@ -8,9 +8,13 @@ Daylight is a private family organizer for schedules, school information, tasks,
 
 Daylight may contain information you enter, including family member names, calendar events, tasks, grocery items, school addresses, health reminders, and app preferences. A new installation contains no family information. If you choose schedule screenshot import, the selected images may contain student and school information.
 
+Location sharing is off by default. If you explicitly enable it, Daylight uses your device's current precise location while the app is active to show progress on the shared school-route map. You can stop sharing at any time from School Route. Daylight does not use location for advertising or unrelated tracking.
+
 ## Storage and synchronization
 
 On-device preferences and family data are stored locally. If you choose to link devices, Daylight synchronizes an encrypted family payload through the Daylight relay. The relay does not receive the family encryption key and cannot read the encrypted payload. Pairing is optional.
+
+When location sharing is enabled, the most recent device position is included in that encrypted family payload. Daylight treats positions as live status rather than route history; stale map positions expire automatically.
 
 ## Third-party services
 
