@@ -14,6 +14,30 @@
 </head>
 <body>
   <div class="backdrop"></div>
+  <section id="onboarding" class="onboarding" hidden aria-label="Set up Daylight">
+    <div class="onboarding-shell glass">
+      <header class="onboarding-brand"><span class="onboarding-mark">▥</span><div><small>WELCOME TO</small><h1>daylight</h1></div></header>
+      <div class="onboarding-copy"><small>YOUR FAMILY, IN ONE CALM PLACE</small><h2>Start fresh or join your family.</h2><p>A new device begins completely empty. Your family information appears only after you create a private family or connect with an invitation code.</p></div>
+      <div id="onboardingChoices" class="onboarding-choices">
+        <button type="button" data-onboarding-choice="create"><b>＋</b><span><strong>Create a family</strong><small>Set up a new private Daylight space</small></span><i>›</i></button>
+        <button type="button" data-onboarding-choice="join"><b>⌁</b><span><strong>Join a family</strong><small>Use a code from another device</small></span><i>›</i></button>
+      </div>
+      <form id="createFamilyForm" class="onboarding-form" hidden>
+        <button type="button" class="onboarding-back" data-onboarding-back>‹ Back</button><small>CREATE YOUR FAMILY</small><h2>A few essentials</h2>
+        <label>Family name<input name="familyName" autocomplete="organization" placeholder="The Rivera family" required maxlength="60"></label>
+        <label>Your name<input name="memberName" autocomplete="name" placeholder="Alex Rivera" required maxlength="60"></label>
+        <label>Weather location<input name="weatherLocation" autocomplete="address-level2" placeholder="City, State" maxlength="80"></label>
+        <button class="primary">Create family</button>
+      </form>
+      <form id="joinFamilyForm" class="onboarding-form" hidden>
+        <button type="button" class="onboarding-back" data-onboarding-back>‹ Back</button><small>JOIN YOUR FAMILY</small><h2>Enter your invitation</h2>
+        <label>Invitation code<input name="pairingCode" autocomplete="one-time-code" autocapitalize="characters" placeholder="12-character code" required minlength="6" maxlength="32"></label>
+        <label>Your display name<input name="memberName" autocomplete="name" placeholder="Alex" required maxlength="60"></label>
+        <button class="primary">Connect this device</button><p class="onboarding-note">Daylight will request the current family information from an already connected device.</p>
+      </form>
+      <footer>Private by design · You control your family data</footer>
+    </div>
+  </section>
   <div id="app" class="app-shell">
     <header class="topbar unified-header glass">
       <div class="header-main"><div class="header-greeting"><small id="eyebrow">DAYLIGHT MOBILE</small><h1 id="greeting">Good morning.</h1><p id="dateLine"></p></div><div class="header-weather"><span id="weatherIcon" class="weather-icon">◌</span><div><strong id="weatherNow">Weather updating</strong><small id="weatherAdvice">Checking forecast…</small></div></div><div class="top-actions"><button id="syncButton" class="icon-button" aria-label="Sync status"><span id="syncDot"></span><svg viewBox="0 0 24 24"><path d="M20 7h-6V1M4 17h6v6M18.5 9A7 7 0 0 0 6.2 5.5L4 7m2 8a7 7 0 0 0 12.3 3.5L20 17"/></svg></button><button id="notifyButton" class="icon-button" aria-label="Notifications"><svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg><b id="noticeCount" hidden>0</b></button></div></div>

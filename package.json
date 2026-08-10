@@ -1,0 +1,7 @@
+{
+  "name":"daylight-mobile",
+  "version":"3.0.0",
+  "private":true,
+  "type":"module",
+  "scripts":{"test":"node tests/production-safety.test.mjs"}
+}
