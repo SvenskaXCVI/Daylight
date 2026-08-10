@@ -1,0 +1,13 @@
+{
+  "appId": "com.daylight.family",
+  "appName": "Daylight",
+  "webDir": "www",
+  "backgroundColor": "#08111b",
+  "ios": {
+    "contentInset": "automatic",
+    "preferredContentMode": "mobile",
+    "allowsLinkPreview": false,
+    "scrollEnabled": true,
+    "scheme": "Daylight"
+  }
+}
