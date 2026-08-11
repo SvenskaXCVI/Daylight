@@ -33,7 +33,17 @@ async function parseSchedule(req,res){
     if(!outputText)throw Error('No schedule was returned');return json(res,200,{schedule:JSON.parse(outputText)});
   }catch(error){return json(res,error.message==='too-large'?413:500,{error:error.message==='too-large'?'Images are too large.':String(error.message||'Schedule import failed.')})}
 }
-const server=http.createServer(async(req,res)=>{if(req.method==='OPTIONS')return json(res,204,{});if(req.method==='POST'&&req.url==='/api/parse-schedule')return parseSchedule(req,res);return json(res,200,{service:'Daylight Sync Relay',status:'online',scheduleImport:Boolean(process.env.OPENAI_API_KEY)});});
+const oauthAttempts=new Map();
+function oauthAllowed(req){const forwarded=String(req.headers['x-forwarded-for']||req.socket.remoteAddress||'unknown').split(',')[0].trim(),now=Date.now(),recent=(oauthAttempts.get(forwarded)||[]).filter(time=>now-time<60000);if(recent.length>=20)return false;recent.push(now);oauthAttempts.set(forwarded,recent);if(oauthAttempts.size>5000)for(const[key,times]of oauthAttempts)if(!times.some(time=>now-time<60000))oauthAttempts.delete(key);return true}
+function epicOAuthCallback(req,res){
+  const headers={'cache-control':'no-store, max-age=0','pragma':'no-cache','referrer-policy':'no-referrer','content-security-policy':"default-src 'none'; frame-ancestors 'none'; base-uri 'none'",'x-content-type-options':'nosniff','permissions-policy':'camera=(), microphone=(), geolocation=()'};
+  if(!oauthAllowed(req)){res.writeHead(429,{...headers,'content-type':'text/plain; charset=utf-8','retry-after':'60'});return res.end('Too many callback attempts. Try again shortly.')}
+  const incoming=new URL(req.url,'https://daylight-sync-relay.onrender.com'),state=incoming.searchParams.get('state')||'',code=incoming.searchParams.get('code')||'',error=incoming.searchParams.get('error')||'';
+  if(!/^[A-Za-z0-9_-]{20,256}$/.test(state)||(!code&&!error)||code.length>4096||error.length>256){res.writeHead(400,{...headers,'content-type':'text/plain; charset=utf-8'});return res.end('Invalid Daylight authorization response.')}
+  const local=new URL('http://localhost:49173/callback');for(const name of ['code','state','error','error_description']){const value=incoming.searchParams.get(name);if(value&&value.length<=4096)local.searchParams.set(name,value)}
+  res.writeHead(302,{...headers,'location':local.toString()});res.end();
+}
+const server=http.createServer(async(req,res)=>{if(req.method==='OPTIONS')return json(res,204,{});if(req.method==='GET'&&String(req.url||'').startsWith('/oauth/epic/callback'))return epicOAuthCallback(req,res);if(req.method==='POST'&&req.url==='/api/parse-schedule')return parseSchedule(req,res);return json(res,200,{service:'Daylight Sync Relay',status:'online',scheduleImport:Boolean(process.env.OPENAI_API_KEY)});});
 const wss=new WebSocketServer({server});
 const rooms=new Map();
 
