@@ -227,3 +227,34 @@ body.light .family-now-summary>span:first-child>small:before{background:color-mi
 body.light .family-now-summary strong,body.light .family-now-counts b{color:#0b1a25!important;text-shadow:none}
 body.light .family-now-summary em,body.light .family-now-counts small{color:#405866!important}
 body.light .family-now-summary>i{color:#203846!important}
+
+/* Floating navigation and content-aware page height. */
+html{height:100%;overscroll-behavior-y:none}
+body{min-height:100%;min-height:100dvh;padding-bottom:0!important;overscroll-behavior-y:none}
+.app-shell{
+  min-height:100dvh;
+  padding-bottom:calc(96px + env(safe-area-inset-bottom))!important;
+}
+.bottom-nav{
+  left:50%!important;
+  right:auto!important;
+  bottom:calc(10px + env(safe-area-inset-bottom))!important;
+  width:min(calc(100% - 28px),690px)!important;
+  height:72px!important;
+  padding:5px 8px!important;
+  border-radius:24px!important;
+  overflow:hidden;
+  box-shadow:0 18px 48px rgba(0,0,0,.3),inset 0 1px rgba(255,255,255,.1)!important;
+}
+.floating-actions{
+  bottom:calc(92px + env(safe-area-inset-bottom))!important;
+}
+/* A short view remains viewport-sized; natural document scrolling begins only
+   when its real content exceeds the available area. */
+.view.active{min-height:0}
+main{min-height:0}
+@media(max-width:390px){
+  .bottom-nav{width:calc(100% - 20px)!important;bottom:calc(8px + env(safe-area-inset-bottom))!important}
+  .app-shell{padding-bottom:calc(92px + env(safe-area-inset-bottom))!important}
+  .floating-actions{bottom:calc(88px + env(safe-area-inset-bottom))!important}
+}
