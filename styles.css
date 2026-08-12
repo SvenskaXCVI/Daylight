@@ -288,6 +288,7 @@ body.light .bottom-nav button.active svg{color:#07131d!important}
 .app-shell{min-height:100dvh;touch-action:pan-y}
 #main{overflow-x:clip}
 .gesture-navigation .view{animation:none!important}
+.github-update-card{display:flex;align-items:center;justify-content:space-between;gap:16px}.github-update-copy{min-width:0}.github-update-copy h2{margin:3px 0 5px;font-size:20px}.github-update-copy p{margin:0;color:var(--muted);font-size:11px}.commit-pills{display:flex;flex-wrap:wrap;gap:7px;margin-top:11px}.commit-pills span{border:1px solid var(--line);background:rgba(7,15,22,.46);border-radius:999px;padding:6px 9px;color:var(--muted);font-size:9px}.commit-pills b{color:var(--text);font-family:ui-monospace,SFMono-Regular,Consolas,monospace;margin-left:4px}.github-update-button{padding:0 16px;white-space:nowrap}.github-update-button:disabled{opacity:.7}@media(max-width:460px){.github-update-card{align-items:stretch;flex-direction:column}.github-update-button{width:100%}}
 .view.swiping-page{transform:translate3d(var(--page-drag,0),0,0);opacity:var(--page-fade,1);animation:none!important;will-change:transform,opacity;transition:none!important}
 .view.settling-page{transform:translate3d(var(--page-enter,var(--page-drag,0)),0,0);opacity:var(--page-fade,1);animation:none!important;will-change:transform,opacity;transition:transform .26s cubic-bezier(.22,1,.36,1),opacity .24s ease-out!important}
 .sheet.swiping-down{transform:translate(-50%,var(--sheet-drag,0));transition:none;user-select:none}
