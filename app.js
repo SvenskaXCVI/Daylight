@@ -62,6 +62,7 @@ function applySnapshot(data){const changed=[];['customEvents','syncedCalendarEve
 const applySnapshotRecords=applySnapshot;
 applySnapshot=function(data){if(Array.isArray(data.syncTombstones))state.syncTombstones=mergeSyncRecords(state.syncTombstones||[],data.syncTombstones);for(const tombstone of state.syncTombstones||[]){if(Array.isArray(data[tombstone.collection]))data[tombstone.collection]=data[tombstone.collection].filter(item=>item.id!==tombstone.recordId);}applyTombstones();const result=applySnapshotRecords(data);queueMicrotask(renderProfileImages);return result;};
 async function sendSnapshot(){if(socket?.readyState!==WebSocket.OPEN)return;socket.send(JSON.stringify({type:'snapshot',roomId:await syncRoomId(),deviceId:state.syncSettings.deviceId,encrypted:await encryptSyncPayload(snapshot())}))}
+async function refreshFamilyData(){const indicator=document.querySelector('#pullRefresh'),label=indicator?.querySelector('strong');indicator?.classList.add('refreshing');if(label)label.textContent='Refreshing family…';try{if(socket?.readyState===WebSocket.OPEN)socket.send(JSON.stringify({type:'refresh-request',roomId:await syncRoomId(),deviceId:state.syncSettings.deviceId}));else connectSync();await updateWeather();renderAll();await new Promise(resolve=>setTimeout(resolve,650));if(label)label.textContent='Family updated';navigator.vibrate?.(16);await new Promise(resolve=>setTimeout(resolve,350))}catch{if(label)label.textContent='Could not refresh';await new Promise(resolve=>setTimeout(resolve,700))}finally{indicator?.classList.remove('refreshing');document.querySelector('#app')?.classList.remove('refreshing-family');if(label)label.textContent='Pull to refresh'}}
 function refreshMobileLiveMap(){const wrap=document.querySelector('#mobileLiveMapWrap');if(wrap)wrap.innerHTML=mobileRouteMapHtml()}
 function stopLocationSharing(broadcast=true){if(locationWatchId!==null&&navigator.geolocation)navigator.geolocation.clearWatch(locationWatchId);locationWatchId=null;delete liveDeviceLocations[state.syncSettings.deviceId];if(broadcast)sendSnapshot();refreshMobileLiveMap()}
 function startLocationSharing(){if(!state.mobilePreferences.locationSharing)return;if(!navigator.geolocation){state.mobilePreferences.locationSharing=false;save(false);toast('Location is not available on this device');return}if(locationWatchId!==null)return;locationWatchId=navigator.geolocation.watchPosition(position=>{const now=Date.now();liveDeviceLocations[state.syncSettings.deviceId]={lat:Number(position.coords.latitude),lng:Number(position.coords.longitude),accuracy:Math.round(position.coords.accuracy||0),updatedAt:now,name:state.profile.memberName||'Family phone',deviceId:state.syncSettings.deviceId};refreshMobileLiveMap();if(now-lastLocationSentAt>=5000){lastLocationSentAt=now;sendSnapshot()}},error=>{state.mobilePreferences.locationSharing=false;save(false);locationWatchId=null;const toggle=document.querySelector('#locationSharingToggle');if(toggle)toggle.checked=false;toast(error.code===1?'Location permission was not allowed':'Daylight could not update this phone’s location')},{enableHighAccuracy:true,maximumAge:4000,timeout:15000})}
@@ -161,7 +162,14 @@ gestureSurface?.addEventListener('pointerdown',event=>{
 gestureSurface?.addEventListener('pointermove',event=>{
   if(!pageGesture||pageGesture.id!==event.pointerId)return;
   const dx=event.clientX-pageGesture.x,dy=event.clientY-pageGesture.y;
-  if(!pageGesture.axis&&Math.hypot(dx,dy)>9)pageGesture.axis=Math.abs(dx)>Math.abs(dy)*1.15?'x':'y';
+  if(!pageGesture.axis&&Math.hypot(dx,dy)>9)pageGesture.axis=Math.abs(dx)>Math.abs(dy)*1.15?'x':dy>0&&scrollY<=1?'pull':'y';
+  if(pageGesture.axis==='pull'){
+    event.preventDefault();
+    const pull=Math.min(104,Math.max(0,dy)*.46),progress=Math.min(1,pull/72),app=document.querySelector('#app');
+    pageGesture.pull=pull;app.classList.add('pulling-refresh');app.style.setProperty('--pull-distance',`${pull}px`);app.style.setProperty('--pull-progress',String(progress));
+    const label=document.querySelector('#pullRefresh strong');if(label)label.textContent=pull>=72?'Release to refresh':'Pull to refresh';
+    return;
+  }
   if(pageGesture.axis!=='x')return;
   event.preventDefault();
   pageGesture.lastX=event.clientX;
@@ -175,6 +183,13 @@ function finishPageGesture(event,cancelled=false){
   if(!pageGesture||pageGesture.id!==event.pointerId)return;
   const gesture=pageGesture;pageGesture=null;
   const dx=event.clientX-gesture.x,dy=event.clientY-gesture.y,elapsed=Math.max(1,performance.now()-gesture.time),velocity=Math.abs(dx)/elapsed;
+  if(gesture.axis==='pull'){
+    const app=document.querySelector('#app'),shouldRefresh=!cancelled&&(gesture.pull||0)>=72;
+    app.classList.remove('pulling-refresh');app.style.removeProperty('--pull-progress');
+    if(shouldRefresh){app.classList.add('refreshing-family');app.style.setProperty('--pull-distance','54px');refreshFamilyData()}
+    else{app.classList.add('releasing-refresh');app.style.setProperty('--pull-distance','0px');setTimeout(()=>{app.classList.remove('releasing-refresh');app.style.removeProperty('--pull-distance');const label=document.querySelector('#pullRefresh strong');if(label)label.textContent='Pull to refresh'},360)}
+    return;
+  }
   if(gesture.axis!=='x'){resetPageGesture(gesture.view);return}
   suppressPageTap=true;setTimeout(()=>suppressPageTap=false,180);
   const index=mobilePageOrder.indexOf(gesture.view.dataset.view),direction=dx<0?1:-1,next=index+direction,complete=!cancelled&&next>=0&&next<mobilePageOrder.length&&Math.abs(dx)>Math.min(92,innerWidth*.2)&&(Math.abs(dx)>Math.abs(dy)*1.15||velocity>.55);

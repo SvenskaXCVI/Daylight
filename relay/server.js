@@ -49,6 +49,9 @@ wss.on('connection',socket=>{
       send(socket,{type:'ready',devices:room(roomId).size});
       for(const peer of room(roomId))if(peer!==socket)send(peer,{type:'sync-request',roomId,deviceId:message.deviceId});
     }
+    if(message.type==='refresh-request'){
+      for(const peer of room(roomId))if(peer!==socket)send(peer,{type:'sync-request',roomId,deviceId:message.deviceId});
+    }
     if(message.type==='snapshot'&&message.encrypted?.iv&&message.encrypted?.data){
       const safe={type:'snapshot',roomId,deviceId:String(message.deviceId||''),encrypted:message.encrypted};
       for(const peer of room(roomId))if(peer!==socket)send(peer,safe);
