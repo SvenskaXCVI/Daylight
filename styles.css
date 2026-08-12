@@ -307,3 +307,12 @@ body.light .bottom-nav button.active svg{color:#07131d!important}
 .student-card.dragging{cursor:grabbing;touch-action:none;transform:scale(1.015) rotate(.18deg);opacity:.96;box-shadow:0 24px 58px rgba(0,0,0,.42),0 0 0 2px var(--student)}
 .student-card.dragging .student-head:after{opacity:1;color:var(--student)}
 body.mobile-reduce-motion .student-card.hold-ready,body.mobile-reduce-motion .student-card.dragging{transform:none}
+
+/* One understandable Settings entry, with Accessibility kept fully separate. */
+.more-grid .settings-entry{grid-column:1/-1;min-height:78px}
+.settings-hub{display:grid;gap:9px}
+.settings-hub>button{display:grid;grid-template-columns:40px minmax(0,1fr) 24px;align-items:center;gap:11px;width:100%;min-height:72px;padding:11px 12px;border:1px solid var(--line);border-radius:18px;background:rgba(7,15,22,.34);color:var(--text);text-align:left}
+.settings-hub>button>span{width:40px;height:40px;display:grid;place-items:center;border-radius:13px;background:color-mix(in srgb,var(--accent) 16%,rgba(255,255,255,.05));color:var(--accent);font-weight:850}
+.settings-hub strong,.settings-hub small{display:block}.settings-hub strong{font-size:13px}.settings-hub small{margin-top:3px;color:var(--muted);font-size:10px;line-height:1.35}.settings-hub i{font-style:normal;color:var(--muted);font-size:22px;text-align:center}
+body.light .settings-hub>button{background:rgba(249,253,255,.64)}
+.privacy-settings{display:grid;gap:10px}.privacy-settings .live-location-toggle{margin:0}
