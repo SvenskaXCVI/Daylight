@@ -71,7 +71,6 @@
 
       <section class="view" data-view="more">
         <div class="page-title more-title"><div><small>DAYLIGHT</small><h2>More</h2></div><span>Personalize and connect</span></div>
-        <section class="glass panel"><div class="section-title compact"><div><small>ASK DAYLIGHT</small><h2>Your family assistant</h2></div></div><form id="assistantForm" class="assistant-form"><textarea name="prompt" placeholder="Try “Add a dentist visit Monday at 3 PM”"></textarea><button>Ask Daylight</button></form><div class="schedule-import"><input id="scheduleImageFiles" type="file" accept="image/png,image/jpeg,image/webp" multiple hidden><button type="button" id="attachScheduleImages" class="schedule-upload"><span>＋</span><div><strong>Import a bell schedule</strong><small>Choose screenshots or photos for Daylight to read</small></div></button><label id="scheduleImportOwnerLabel" hidden>Apply to<select id="scheduleImportOwner"></select></label><div id="scheduleImageList" class="schedule-image-list" hidden></div><div id="scheduleImportResult" class="schedule-import-result" hidden></div></div><div id="assistantReply" class="assistant-reply">I can add events and list items, find schedules, summarize the day, and read bell schedule screenshots.</div></section>
         <div class="more-grid">
           <button class="glass more-button" data-sheet="route"><span>↗</span><div><strong>School route</strong><small>Addresses and morning order</small></div></button>
           <button class="glass more-button" data-sheet="health"><span>✚</span><div><strong>Health</strong><small>Medication and appointments</small></div></button>
@@ -90,11 +89,12 @@
       <button data-nav="tasks"><svg viewBox="0 0 24 24"><path d="m4 7 2 2 4-4M12 7h8M4 15l2 2 4-4m2 2h8"/></svg><span>Lists</span></button>
       <button data-nav="more"><svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></svg><span>More</span></button>
     </nav>
-    <button class="floating-add" data-quick="quick" aria-label="Quick add">+</button>
+    <div class="floating-actions" aria-label="Daylight actions"><button class="floating-assistant" data-sheet="assistant" aria-label="Open Daylight Assistant">✦</button><button class="floating-add" data-quick="quick" aria-label="Quick add">+</button></div>
   </div>
 
   <div id="sheetBackdrop" class="sheet-backdrop" hidden></div>
   <aside id="sheet" class="sheet glass" aria-modal="true" hidden><div class="sheet-handle"></div><header><div><small id="sheetEyebrow"></small><h2 id="sheetTitle"></h2></div><button id="closeSheet" class="icon-button">×</button></header><div id="sheetBody" class="sheet-body"></div></aside>
+  <div hidden><input id="scheduleImageFiles" type="file"><button id="attachScheduleImages" type="button"></button><label id="scheduleImportOwnerLabel"><select id="scheduleImportOwner"></select></label><div id="scheduleImageList"></div><div id="scheduleImportResult"></div></div>
   <div id="toast" class="toast" hidden></div>
   <script src="seed-data.js"></script>
   <script src="app.js"></script>
