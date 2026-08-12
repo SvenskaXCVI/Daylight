@@ -165,9 +165,9 @@ gestureSurface?.addEventListener('pointermove',event=>{
   if(!pageGesture.axis&&Math.hypot(dx,dy)>9)pageGesture.axis=Math.abs(dx)>Math.abs(dy)*1.15?'x':dy>0&&scrollY<=1?'pull':'y';
   if(pageGesture.axis==='pull'){
     event.preventDefault();
-    const pull=Math.min(104,Math.max(0,dy)*.46),progress=Math.min(1,pull/72),app=document.querySelector('#app');
+    const pull=Math.min(138,Math.max(0,dy)*.5),progress=Math.min(1,pull/98),app=document.querySelector('#app');
     pageGesture.pull=pull;app.classList.add('pulling-refresh');app.style.setProperty('--pull-distance',`${pull}px`);app.style.setProperty('--pull-progress',String(progress));
-    const label=document.querySelector('#pullRefresh strong');if(label)label.textContent=pull>=72?'Release to refresh':'Pull to refresh';
+    const label=document.querySelector('#pullRefresh strong');if(label)label.textContent=pull>=98?'Release to refresh':'Pull to refresh';
     return;
   }
   if(pageGesture.axis!=='x')return;
@@ -184,9 +184,9 @@ function finishPageGesture(event,cancelled=false){
   const gesture=pageGesture;pageGesture=null;
   const dx=event.clientX-gesture.x,dy=event.clientY-gesture.y,elapsed=Math.max(1,performance.now()-gesture.time),velocity=Math.abs(dx)/elapsed;
   if(gesture.axis==='pull'){
-    const app=document.querySelector('#app'),shouldRefresh=!cancelled&&(gesture.pull||0)>=72;
+    const app=document.querySelector('#app'),shouldRefresh=!cancelled&&(gesture.pull||0)>=98;
     app.classList.remove('pulling-refresh');app.style.removeProperty('--pull-progress');
-    if(shouldRefresh){app.classList.add('refreshing-family');app.style.setProperty('--pull-distance','54px');refreshFamilyData()}
+    if(shouldRefresh){app.classList.add('refreshing-family');app.style.setProperty('--pull-distance','112px');refreshFamilyData()}
     else{app.classList.add('releasing-refresh');app.style.setProperty('--pull-distance','0px');setTimeout(()=>{app.classList.remove('releasing-refresh');app.style.removeProperty('--pull-distance');const label=document.querySelector('#pullRefresh strong');if(label)label.textContent='Pull to refresh'},360)}
     return;
   }
