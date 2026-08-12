@@ -124,3 +124,52 @@ document.addEventListener('pointerdown',event=>{const card=event.target.closest(
 document.addEventListener('pointermove',event=>{if(!studentDrag){if(studentStart&&Math.hypot(event.clientX-studentStart.x,event.clientY-studentStart.y)>10){clearTimeout(studentHold);studentHold=null;studentStart=null}return}event.preventDefault();const target=document.elementFromPoint(event.clientX,event.clientY)?.closest('.student-card');if(target&&target!==studentDrag&&target.parentElement===studentDrag.parentElement){const box=target.getBoundingClientRect();target.parentElement.insertBefore(studentDrag,event.clientY<box.top+box.height/2?target:target.nextSibling)}},{passive:false});
 function finishStudentDrag(){clearTimeout(studentHold);studentHold=null;studentStart=null;if(!studentDrag)return;studentDrag.classList.remove('dragging');const order=[...document.querySelectorAll('#studentCards .student-card')].map(card=>card.dataset.student),byId=new Map(state.people.map(child=>[child.id,child]));state.people=order.map(id=>byId.get(id)).filter(Boolean);studentDrag=null;save();toast('Student order saved');setTimeout(()=>suppressStudentClick=false,100)}
 document.addEventListener('pointerup',finishStudentDrag);document.addEventListener('pointercancel',finishStudentDrag);document.addEventListener('click',event=>{if(suppressStudentClick&&event.target.closest('.student-card')){event.preventDefault();event.stopImmediatePropagation()}},true);
+
+/* Native-feeling navigation gestures. Horizontal page swipes deliberately
+   ignore controls and horizontal scrollers; sheets dismiss only on a clear
+   downward gesture while their content is already at the top. */
+const mobilePageOrder=['today','calendar','agenda','tasks','more'];
+let pageGesture=null,sheetGesture=null;
+const gestureControl=target=>target.closest('button,a,input,select,textarea,label,[contenteditable],.filter-row,.date-strip,.mobile-week-carousel,.segmented,.calendar-grid,.student-card.dragging');
+document.querySelector('#main')?.addEventListener('pointerdown',event=>{
+  if(event.pointerType==='mouse'||studentDrag||!document.querySelector('#sheet').hidden||gestureControl(event.target))return;
+  pageGesture={id:event.pointerId,x:event.clientX,y:event.clientY,time:performance.now(),target:event.currentTarget};
+});
+document.querySelector('#main')?.addEventListener('pointerup',event=>{
+  if(!pageGesture||pageGesture.id!==event.pointerId)return;
+  const dx=event.clientX-pageGesture.x,dy=event.clientY-pageGesture.y,elapsed=performance.now()-pageGesture.time;
+  pageGesture=null;
+  if(elapsed>700||Math.abs(dx)<72||Math.abs(dx)<Math.abs(dy)*1.35)return;
+  const active=document.querySelector('.view.active')?.dataset.view,index=mobilePageOrder.indexOf(active),next=index+(dx<0?1:-1);
+  if(index<0||next<0||next>=mobilePageOrder.length)return;
+  const main=document.querySelector('#main');
+  main.classList.remove('page-swipe-left','page-swipe-right');
+  main.classList.add(dx<0?'page-swipe-left':'page-swipe-right');
+  navigate(mobilePageOrder[next]);
+  setTimeout(()=>main.classList.remove('page-swipe-left','page-swipe-right'),260);
+});
+document.querySelector('#main')?.addEventListener('pointercancel',()=>pageGesture=null);
+
+const gestureSheet=document.querySelector('#sheet');
+gestureSheet?.addEventListener('pointerdown',event=>{
+  if(event.pointerType==='mouse'||gestureSheet.scrollTop>0||event.target.closest('input,select,textarea,button,a,label'))return;
+  sheetGesture={id:event.pointerId,x:event.clientX,y:event.clientY,time:performance.now()};
+});
+gestureSheet?.addEventListener('pointermove',event=>{
+  if(!sheetGesture||sheetGesture.id!==event.pointerId)return;
+  const dx=event.clientX-sheetGesture.x,dy=Math.max(0,event.clientY-sheetGesture.y);
+  if(dy<8||dy<Math.abs(dx)*1.1)return;
+  event.preventDefault();
+  gestureSheet.classList.add('swiping-down');
+  gestureSheet.style.setProperty('--sheet-drag',`${Math.min(dy,220)}px`);
+},{passive:false});
+function finishSheetGesture(event){
+  if(!sheetGesture||sheetGesture.id!==event.pointerId)return;
+  const dy=event.clientY-sheetGesture.y,dx=event.clientX-sheetGesture.x,elapsed=performance.now()-sheetGesture.time;
+  sheetGesture=null;
+  gestureSheet.classList.remove('swiping-down');
+  gestureSheet.style.removeProperty('--sheet-drag');
+  if(dy>82&&dy>Math.abs(dx)*1.15&&elapsed<900)closeSheet();
+}
+gestureSheet?.addEventListener('pointerup',finishSheetGesture);
+gestureSheet?.addEventListener('pointercancel',event=>{if(sheetGesture?.id===event.pointerId){sheetGesture=null;gestureSheet.classList.remove('swiping-down');gestureSheet.style.removeProperty('--sheet-drag')}});
