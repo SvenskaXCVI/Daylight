@@ -284,12 +284,16 @@ body.light .bottom-nav button.active span,
 body.light .bottom-nav button.active svg{color:#07131d!important}
 @media(prefers-reduced-motion:reduce){.bottom-nav button{transition:none}.bottom-nav button:active{transform:none}}
 
-/* Gesture feedback remains subtle and never competes with vertical scrolling. */
-#main{touch-action:pan-y}
-#main.page-swipe-left{animation:pageSwipeLeft .25s ease}
-#main.page-swipe-right{animation:pageSwipeRight .25s ease}
-@keyframes pageSwipeLeft{from{opacity:.62;transform:translateX(16px)}to{opacity:1;transform:none}}
-@keyframes pageSwipeRight{from{opacity:.62;transform:translateX(-16px)}to{opacity:1;transform:none}}
+/* Gesture feedback follows the finger, then settles without a second animation. */
+#main{touch-action:pan-y;overflow-x:clip}
+.view.swiping-page{transform:translate3d(var(--page-drag,0),0,0);opacity:var(--page-fade,1);animation:none!important;will-change:transform,opacity;transition:none!important}
+.view.settling-page{transform:translate3d(var(--page-enter,var(--page-drag,0)),0,0);opacity:var(--page-fade,1);animation:none!important;will-change:transform,opacity;transition:transform .26s cubic-bezier(.22,1,.36,1),opacity .24s ease-out!important}
 .sheet.swiping-down{transform:translate(-50%,var(--sheet-drag,0));transition:none;user-select:none}
 .sheet-handle{touch-action:none}
-@media(prefers-reduced-motion:reduce){#main.page-swipe-left,#main.page-swipe-right{animation:none}}
+@media(prefers-reduced-motion:reduce){.view.swiping-page,.view.settling-page{transition:none!important}}
+
+/* Fixed, precisely centered Family Now disclosure glyph. */
+.family-now-summary>i{position:relative;display:grid!important;place-items:center;width:24px;height:24px;min-width:24px;font-size:0!important;line-height:0;transform:none!important;align-self:center;justify-self:end}
+.family-now-summary>i:before{content:"";width:8px;height:8px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:translateY(-2px) rotate(45deg);transition:transform .2s cubic-bezier(.22,.8,.3,1);transform-origin:center}
+.family-now.open .family-now-summary>i{transform:none!important}
+.family-now.open .family-now-summary>i:before{transform:translateY(2px) rotate(225deg)}
