@@ -285,7 +285,9 @@ body.light .bottom-nav button.active svg{color:#07131d!important}
 @media(prefers-reduced-motion:reduce){.bottom-nav button{transition:none}.bottom-nav button:active{transform:none}}
 
 /* Gesture feedback follows the finger, then settles without a second animation. */
-#main{touch-action:pan-y;overflow-x:clip}
+.app-shell{min-height:100dvh;touch-action:pan-y}
+#main{overflow-x:clip}
+.gesture-navigation .view{animation:none!important}
 .view.swiping-page{transform:translate3d(var(--page-drag,0),0,0);opacity:var(--page-fade,1);animation:none!important;will-change:transform,opacity;transition:none!important}
 .view.settling-page{transform:translate3d(var(--page-enter,var(--page-drag,0)),0,0);opacity:var(--page-fade,1);animation:none!important;will-change:transform,opacity;transition:transform .26s cubic-bezier(.22,1,.36,1),opacity .24s ease-out!important}
 .sheet.swiping-down{transform:translate(-50%,var(--sheet-drag,0));transition:none;user-select:none}
