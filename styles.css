@@ -297,3 +297,13 @@ body.light .bottom-nav button.active svg{color:#07131d!important}
 .family-now-summary>i:before{content:"";width:8px;height:8px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:translateY(-2px) rotate(45deg);transition:transform .2s cubic-bezier(.22,.8,.3,1);transform-origin:center}
 .family-now.open .family-now-summary>i{transform:none!important}
 .family-now.open .family-now-summary>i:before{transform:translateY(2px) rotate(225deg)}
+
+/* iOS-safe student reordering: the header is the drag grip, while the card
+   body remains a normal vertical-scroll surface. */
+.student-card,.student-card *{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
+.student-head{touch-action:none;cursor:grab;position:relative}
+.student-head:after{content:"";width:13px;height:18px;flex:0 0 13px;opacity:.46;background-image:radial-gradient(circle,currentColor 1.15px,transparent 1.35px);background-size:5px 5px;background-position:center;color:var(--muted)}
+.student-card.hold-ready{transform:scale(.993);box-shadow:0 13px 34px rgba(0,0,0,.26),0 0 0 1px color-mix(in srgb,var(--student) 55%,transparent)}
+.student-card.dragging{cursor:grabbing;touch-action:none;transform:scale(1.015) rotate(.18deg);opacity:.96;box-shadow:0 24px 58px rgba(0,0,0,.42),0 0 0 2px var(--student)}
+.student-card.dragging .student-head:after{opacity:1;color:var(--student)}
+body.mobile-reduce-motion .student-card.hold-ready,body.mobile-reduce-motion .student-card.dragging{transform:none}
