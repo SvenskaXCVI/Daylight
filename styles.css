@@ -322,3 +322,33 @@ body.mobile-reduce-motion .student-card.hold-ready,body.mobile-reduce-motion .st
 body.light .settings-hub>button{background:rgba(249,253,255,.64)}
 .privacy-settings{display:grid;gap:10px}.privacy-settings .live-location-toggle{margin:0}
 
+/* Unified mobile motion system. Keep navigation and overlays on compositor-only
+   transform/opacity paths so iOS does not repaint the full glass canvas. */
+:root{--motion-fast:160ms;--motion-normal:260ms;--motion-sheet:300ms;--motion-ease:cubic-bezier(.22,1,.36,1);--motion-press:cubic-bezier(.2,.8,.2,1)}
+.view{animation:none!important}
+.view.nav-entering{opacity:0;transform:translate3d(12px,0,0);will-change:transform,opacity}
+.view.nav-entering.nav-entered{opacity:1;transform:translate3d(0,0,0);transition:transform var(--motion-normal) var(--motion-ease),opacity 190ms ease-out}
+.sheet-backdrop{opacity:0;transition:opacity 220ms ease-out;will-change:opacity}
+.sheet-backdrop.sheet-visible{opacity:1}
+.sheet-backdrop.sheet-closing{opacity:0;pointer-events:none}
+.sheet{opacity:.98;animation:none!important;transform:translate3d(-50%,calc(100% + 12px),0)!important;transition:transform var(--motion-sheet) var(--motion-ease),opacity 190ms ease-out;will-change:transform,opacity;overscroll-behavior:contain}
+.sheet.sheet-visible{opacity:1;transform:translate3d(-50%,0,0)!important}
+.sheet.sheet-closing{opacity:.98;transform:translate3d(-50%,calc(100% + 12px),0)!important;pointer-events:none}
+.sheet.swiping-down{transform:translate3d(-50%,var(--sheet-drag,0),0)!important;transition:none!important;user-select:none}
+.toast{display:block!important;opacity:0;pointer-events:none;transform:translate3d(-50%,9px,0);transition:transform 220ms var(--motion-ease),opacity var(--motion-fast) ease-out;will-change:transform,opacity}
+.toast.toast-visible{opacity:1;transform:translate3d(-50%,0,0)}
+.toast[hidden]{display:none!important}
+.family-now.open .family-now-details{animation:disclosureIn 240ms var(--motion-ease) both;transform-origin:top center}
+.student-card.open .schedule-list{animation:disclosureIn 240ms var(--motion-ease) both;transform-origin:top center}
+@keyframes disclosureIn{from{opacity:0;transform:translate3d(0,-7px,0)}to{opacity:1;transform:translate3d(0,0,0)}}
+button,.student-card,.more-button,.event-item,.agenda-item,.check-item{transition:transform var(--motion-fast) var(--motion-press),border-color var(--motion-fast) ease,background-color var(--motion-fast) ease,box-shadow var(--motion-fast) ease}
+button:active,.more-button:active{transform:scale(.975)}
+.bottom-nav button:active{transform:scale(.94)}
+.bottom-nav button.active{transition:color 180ms ease,transform var(--motion-fast) var(--motion-press)}
+.student-card.hold-ready{transition:transform 120ms var(--motion-press),box-shadow 120ms ease}
+.student-card.dragging{transition:box-shadow 140ms ease,opacity 140ms ease!important;will-change:transform}
+.app-shell>header,.app-shell>#main{transform:translateZ(0);backface-visibility:hidden}
+body.mobile-reduce-motion .view.nav-entering,body.mobile-reduce-motion .view.nav-entering.nav-entered{opacity:1;transform:none;transition:none}
+body.mobile-reduce-motion .sheet,body.mobile-reduce-motion .sheet-backdrop,body.mobile-reduce-motion .toast,body.mobile-reduce-motion button,body.mobile-reduce-motion .student-card{transition:none!important;animation:none!important}
+@media(prefers-reduced-motion:reduce){.view.nav-entering,.view.nav-entering.nav-entered{opacity:1;transform:none;transition:none}.sheet,.sheet-backdrop,.toast,button,.student-card{transition:none!important;animation:none!important}}
+
