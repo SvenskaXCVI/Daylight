@@ -158,7 +158,7 @@ gestureSurface?.addEventListener('pointerdown',event=>{
   if(event.pointerType==='mouse'||studentDrag||!document.querySelector('#sheet').hidden||gestureControl(event.target))return;
   const view=document.querySelector('.view.active');
   pageGesture={id:event.pointerId,x:event.clientX,y:event.clientY,lastX:event.clientX,time:performance.now(),view,axis:null};
-});
+},{capture:true});
 gestureSurface?.addEventListener('pointermove',event=>{
   if(!pageGesture||pageGesture.id!==event.pointerId)return;
   const dx=event.clientX-pageGesture.x,dy=event.clientY-pageGesture.y;
@@ -177,7 +177,7 @@ gestureSurface?.addEventListener('pointermove',event=>{
   pageGesture.view.classList.add('swiping-page');
   pageGesture.view.style.setProperty('--page-drag',`${drag}px`);
   pageGesture.view.style.setProperty('--page-fade',String(Math.max(.78,1-Math.abs(drag)/innerWidth*.18)));
-},{passive:false});
+},{passive:false,capture:true});
 function resetPageGesture(view){view?.classList.remove('swiping-page','settling-page');view?.style.removeProperty('--page-drag');view?.style.removeProperty('--page-fade');view?.style.removeProperty('--page-enter')}
 function finishPageGesture(event,cancelled=false){
   if(!pageGesture||pageGesture.id!==event.pointerId)return;
@@ -201,8 +201,8 @@ function finishPageGesture(event,cancelled=false){
   requestAnimationFrame(()=>requestAnimationFrame(()=>{incoming.style.setProperty('--page-enter','0px');incoming.style.setProperty('--page-fade','1')}));
   setTimeout(()=>resetPageGesture(incoming),240);
 }
-gestureSurface?.addEventListener('pointerup',event=>finishPageGesture(event));
-gestureSurface?.addEventListener('pointercancel',event=>finishPageGesture(event,true));
+gestureSurface?.addEventListener('pointerup',event=>finishPageGesture(event),{capture:true});
+gestureSurface?.addEventListener('pointercancel',event=>finishPageGesture(event,true),{capture:true});
 document.addEventListener('click',event=>{if(suppressPageTap&&event.target.closest('#app')){event.preventDefault();event.stopImmediatePropagation()}},true);
 
 const gestureSheet=document.querySelector('#sheet');
