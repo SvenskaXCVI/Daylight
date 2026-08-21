@@ -1,6 +1,6 @@
-# Daylight Mobile
+# Daylight Arc Mobile
 
-Daylight Mobile is the installable phone companion to the Daylight desktop family dashboard. It is a static progressive web app (PWA), so it can be hosted free on GitHub Pages and installed from Safari or Chrome without an app store.
+Daylight Arc Mobile is the installable phone companion to the Daylight Arc desktop family dashboard. It is a static progressive web app (PWA), so it can be hosted free on GitHub Pages and installed from Safari or Chrome without an app store.
 
 ## Included
 
@@ -29,7 +29,7 @@ Daylight Mobile is the installable phone companion to the Daylight desktop famil
 GitHub Pages cannot host a persistent WebSocket server. The small server in `relay/` is the private transport between devices and can be hosted on a Node-compatible service such as Render, Railway, Fly.io, or a private server.
 
 1. The relay is deployed at `wss://daylight-sync-relay.onrender.com` and is prefilled in both apps.
-2. Open Daylight desktop **Settings → Mobile sync** and copy its family pairing code into the phone under **More → Connections**.
+2. Open Daylight Arc desktop **Settings → Mobile sync** and copy its family pairing code into the phone under **More → Connections**.
 3. Enter the same pairing code on both devices.
 4. Changes are saved locally first and synchronize whenever both devices can reach the relay.
 

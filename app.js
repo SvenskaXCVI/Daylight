@@ -127,7 +127,7 @@ ensureProfile();ensureIdentity();showOnboardingIfNeeded();renderAll();if(state.p
 
 /* Focused assistant popup and touch-first student ordering. */
 const openStandardSheet=openSheet;
-openSheet=function(type){if(type!=='assistant')return openStandardSheet(type);document.querySelector('#sheetEyebrow').textContent='ASK DAYLIGHT';document.querySelector('#sheetTitle').textContent='Your family assistant';document.querySelector('#sheetBody').innerHTML=`<div class="assistant-popup"><form id="assistantForm" class="assistant-form"><label>What can Daylight help with?<textarea name="prompt" required placeholder="Add an appointment, summarize today, or ask about a schedule…"></textarea></label><div class="assistant-controls"><button type="button" id="assistantVoice" class="dictate-button">◉ Dictate</button><button class="primary">Ask Daylight</button></div></form><div id="assistantReply" class="assistant-reply">I can add events and list items, find schedules, summarize the day, and help organize your family.</div></div>`;showSheet();setTimeout(()=>document.querySelector('#assistantForm textarea')?.focus(),180)};
+openSheet=function(type){if(type!=='assistant')return openStandardSheet(type);document.querySelector('#sheetEyebrow').textContent='ASK DAYLIGHT';document.querySelector('#sheetTitle').textContent='Your family assistant';document.querySelector('#sheetBody').innerHTML=`<div class="assistant-popup"><div class="assistant-popup-brand"><img src="icons/daylight-assistant.png" alt=""><span><strong>Daylight <b>Assistant</b></strong><small>Built into Daylight Arc</small></span></div><form id="assistantForm" class="assistant-form"><label>What can Daylight help with?<textarea name="prompt" required placeholder="Add an appointment, summarize today, or ask about a schedule…"></textarea></label><div class="assistant-controls"><button type="button" id="assistantVoice" class="dictate-button">◉ Dictate</button><button class="primary">Ask Daylight</button></div></form><div id="assistantReply" class="assistant-reply">I can add events and list items, find schedules, summarize the day, and help organize your family.</div></div>`;showSheet();setTimeout(()=>document.querySelector('#assistantForm textarea')?.focus(),180)};
 let assistantRecognition=null,assistantRecognitionTimer=null;
 function resetAssistantDictationButton(message='◉ Dictate'){
   const button=document.querySelector('#assistantVoice');
@@ -287,3 +287,12 @@ function finishSheetGesture(event){
 }
 gestureSheet?.addEventListener('pointerup',finishSheetGesture);
 gestureSheet?.addEventListener('pointercancel',event=>{if(sheetGesture?.id===event.pointerId){sheetGesture=null;gestureSheet.classList.remove('swiping-down');gestureSheet.style.removeProperty('--sheet-drag')}});
+
+const mobileStartup=document.querySelector('#mobileStartup');
+if(mobileStartup){
+  const closeMobileStartup=()=>{
+    mobileStartup.classList.add('leaving');
+    window.setTimeout(()=>mobileStartup.remove(),650);
+  };
+  window.setTimeout(closeMobileStartup,2400);
+}

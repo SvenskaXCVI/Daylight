@@ -116,6 +116,10 @@ body.light .sheet-backdrop{background:rgba(235,242,247,.12)!important}
 @media(max-width:390px){.onboarding-shell{padding:18px;border-radius:27px;gap:17px}.onboarding-copy h2,.onboarding-form h2{font-size:26px}}
 
 /* Daylight Assistant schedule image import */
+
+/* Daylight Arc production identity */
+.mobile-arc-icon{width:58px;height:58px;object-fit:contain;border-radius:17px;flex:none}
+.onboarding-brand h1 b{color:#48c991;font-weight:760}
 .schedule-import{display:grid;gap:10px;margin-top:10px}.schedule-upload{width:100%;display:flex;align-items:center;gap:12px;padding:13px;border:1px solid var(--line);border-radius:18px;background:rgba(7,15,22,.4);color:var(--text);text-align:left}.schedule-upload>span{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;background:color-mix(in srgb,var(--accent) 20%,transparent);color:var(--accent);font-size:22px}.schedule-upload strong,.schedule-upload small{display:block}.schedule-upload small{color:var(--muted);font-size:10px;margin-top:3px}.schedule-import>label{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:10px;font-size:10px;font-weight:800;color:var(--muted)}.schedule-import select{width:100%}.schedule-image-list{display:flex;gap:8px;overflow-x:auto;padding-bottom:2px}.schedule-image-list img{width:72px;height:72px;object-fit:cover;border-radius:14px;border:1px solid var(--line)}.schedule-import-result{border:1px solid var(--line);border-radius:18px;padding:13px;background:rgba(5,12,18,.72)}.import-review>small{font-size:8px;letter-spacing:.15em;color:var(--accent);font-weight:900}.import-review h3{margin:4px 0 8px}.import-review p,.import-review article>small{color:var(--muted);font-size:10px;line-height:1.45}.import-review article{padding:10px 0;border-top:1px solid var(--line)}.import-review article strong,.import-review article small{display:block}.import-review article>div{display:flex;justify-content:space-between;gap:12px;padding-top:7px;font-size:11px}.import-review article>div b{white-space:nowrap}.import-actions{display:grid;grid-template-columns:1fr 1.5fr;gap:8px;margin-top:10px}.import-actions button{min-height:44px;border-radius:14px;border:1px solid var(--line);background:transparent;color:var(--text);font-weight:800}.import-actions .primary{background:var(--accent);color:#101722}.import-error{margin:0;color:#ff8f98;font-weight:750}body.light .schedule-upload,body.light .schedule-import-result{background:rgba(255,255,255,.72)}
 
 .mobile-week-carousel{display:grid;grid-template-columns:30px minmax(0,1fr) 30px;align-items:center;gap:3px;margin-top:7px;padding-top:7px;border-top:1px solid var(--line)}.mobile-week-carousel>.date-strip{margin:0!important;padding:0!important;border:0!important}.mobile-week-carousel>button{width:30px;height:40px;border:1px solid var(--line);border-radius:12px;background:rgba(7,15,22,.4);color:var(--muted);font-size:21px;display:grid;place-items:center}.mobile-week-carousel .date-strip button{min-width:0}.mobile-week-carousel .date-strip button:nth-child(4){box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--accent) 28%,transparent)}body.light .mobile-week-carousel>button{background:rgba(255,255,255,.55)}
@@ -351,4 +355,23 @@ button:active,.more-button:active{transform:scale(.975)}
 body.mobile-reduce-motion .view.nav-entering,body.mobile-reduce-motion .view.nav-entering.nav-entered{opacity:1;transform:none;transition:none}
 body.mobile-reduce-motion .sheet,body.mobile-reduce-motion .sheet-backdrop,body.mobile-reduce-motion .toast,body.mobile-reduce-motion button,body.mobile-reduce-motion .student-card{transition:none!important;animation:none!important}
 @media(prefers-reduced-motion:reduce){.view.nav-entering,.view.nav-entering.nav-entered{opacity:1;transform:none;transition:none}.sheet,.sheet-backdrop,.toast,button,.student-card{transition:none!important;animation:none!important}}
+
+/* Daylight Forge launch and the final Arc/Assistant identity. */
+.mobile-startup{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;background:radial-gradient(circle at 50% 44%,rgba(125,105,232,.16),transparent 33%),linear-gradient(145deg,#050b13,#0a1420 62%,#101727);opacity:1;visibility:visible;transition:opacity .58s ease,visibility .58s ease}
+.mobile-startup.leaving{opacity:0;visibility:hidden;pointer-events:none}
+.mobile-startup-brand{display:grid;justify-items:center;gap:11px;padding:28px;text-align:center;animation:mobileForgeArrive .72s cubic-bezier(.22,1,.36,1) both}
+.mobile-startup-brand picture,.mobile-startup-brand picture img{display:block;width:78px;height:78px;object-fit:contain}
+.mobile-forge-wordmark{display:block;width:min(270px,72vw);height:auto;object-fit:contain;filter:drop-shadow(0 9px 25px rgba(143,124,255,.18))}
+.mobile-startup-brand small{color:#9ba6b8;font-size:10px;font-weight:750;letter-spacing:.17em;text-transform:uppercase}
+@keyframes mobileForgeArrive{from{opacity:0;transform:translate3d(0,8px,0) scale(.985)}to{opacity:1;transform:none}}
+.header-greeting #eyebrow{display:flex;align-items:center;gap:7px;min-width:0}
+.header-arc-icon{width:19px;height:19px;flex:0 0 19px;border-radius:5px;object-fit:cover;box-shadow:0 3px 9px rgba(26,181,153,.16)}
+.floating-assistant{overflow:hidden;padding:0;background:rgba(8,16,27,.9)}
+.floating-assistant>img{display:block;width:100%;height:100%;object-fit:cover;border-radius:inherit}
+.assistant-popup-brand{display:flex;align-items:center;gap:11px;padding:10px;border:1px solid var(--line);border-radius:17px;background:rgba(7,15,22,.34)}
+.assistant-popup-brand>img{width:42px;height:42px;flex:0 0 42px;border-radius:50%;object-fit:cover;box-shadow:0 6px 18px rgba(142,93,248,.22)}
+.assistant-popup-brand strong,.assistant-popup-brand small{display:block}.assistant-popup-brand strong{font-family:"SF Pro Display","Avenir Next","Segoe UI Variable Display",system-ui,sans-serif;font-size:13px;letter-spacing:-.025em}.assistant-popup-brand strong b{font:inherit;font-weight:780;color:#b274f2;background:linear-gradient(90deg,#9a85ff,#d26be9);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent}.assistant-popup-brand small{margin-top:2px;color:var(--muted);font-size:9px;letter-spacing:.04em}
+body.light .assistant-popup-brand{background:rgba(249,253,255,.64)}
+@media(prefers-color-scheme:light){.mobile-startup{background:radial-gradient(circle at 50% 44%,rgba(125,105,232,.13),transparent 34%),linear-gradient(145deg,#f7f8fc,#e9edf5)}.mobile-forge-wordmark{filter:brightness(.26) saturate(1.6) contrast(1.12) drop-shadow(0 9px 22px rgba(42,35,82,.12))}.mobile-startup-brand small{color:#4b5568}}
+@media(prefers-reduced-motion:reduce){.mobile-startup-brand{animation:none}.mobile-startup{transition:opacity .2s ease,visibility .2s ease}}
 

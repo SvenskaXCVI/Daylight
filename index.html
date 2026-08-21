@@ -7,20 +7,27 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="color-scheme" content="dark light">
-  <title>Daylight Mobile</title>
+  <title>Daylight Arc</title>
   <link rel="manifest" href="manifest.webmanifest">
-  <link rel="icon" href="icons/daylight-icon.png">
-  <link rel="apple-touch-icon" href="icons/daylight-icon.png">
+  <link rel="icon" href="icons/daylight-arc-icon.png">
+  <link rel="apple-touch-icon" href="icons/daylight-arc-icon.png">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <section id="mobileStartup" class="mobile-startup" aria-label="Daylight Forge is starting">
+    <div class="mobile-startup-brand">
+      <picture><source media="(prefers-color-scheme: light)" srcset="icons/daylight-forge-light.png"><img src="icons/daylight-forge-dark.png" alt=""></picture>
+      <img class="mobile-forge-wordmark" src="icons/daylight-forge-wordmark.png" alt="Daylight Forge">
+      <small>Your family, in rhythm.</small>
+    </div>
+  </section>
   <div class="backdrop"></div>
-  <section id="onboarding" class="onboarding" hidden aria-label="Set up Daylight">
+  <section id="onboarding" class="onboarding" hidden aria-label="Set up Daylight Arc">
     <div class="onboarding-shell glass">
-      <header class="onboarding-brand"><span class="onboarding-mark">▥</span><div><small>WELCOME TO</small><h1>daylight</h1></div></header>
+      <header class="onboarding-brand"><img class="mobile-arc-icon" src="icons/daylight-arc-icon.png" alt=""><div><small>WELCOME TO</small><h1>daylight <b>Arc</b></h1></div></header>
       <div class="onboarding-copy"><small>YOUR FAMILY, IN ONE CALM PLACE</small><h2>Start fresh or join your family.</h2><p>A new device begins completely empty. Your family information appears only after you create a private family or connect with an invitation code.</p></div>
       <div id="onboardingChoices" class="onboarding-choices">
-        <button type="button" data-onboarding-choice="create"><b>＋</b><span><strong>Create a family</strong><small>Set up a new private Daylight space</small></span><i>›</i></button>
+        <button type="button" data-onboarding-choice="create"><b>＋</b><span><strong>Create a family</strong><small>Set up a new private Daylight Arc space</small></span><i>›</i></button>
         <button type="button" data-onboarding-choice="join"><b>⌁</b><span><strong>Join a family</strong><small>Use a code from another device</small></span><i>›</i></button>
       </div>
       <form id="createFamilyForm" class="onboarding-form" hidden>
@@ -42,7 +49,7 @@
   <div id="app" class="app-shell">
     <div id="pullRefresh" class="pull-refresh" aria-live="polite"><span class="pull-refresh-icon" aria-hidden="true"><i></i><i></i><i></i></span><strong>Pull to refresh</strong></div>
     <header class="topbar unified-header glass">
-      <div class="header-main"><div class="header-greeting"><small id="eyebrow">DAYLIGHT MOBILE</small><h1 id="greeting">Good morning.</h1><p id="dateLine"></p></div><div class="header-weather"><span id="weatherIcon" class="weather-icon">◌</span><div><strong id="weatherNow">Weather updating</strong><small id="weatherAdvice">Checking forecast…</small></div></div><div class="top-actions"><button id="syncButton" class="icon-button" aria-label="Sync status"><span id="syncDot"></span><svg viewBox="0 0 24 24"><path d="M20 7h-6V1M4 17h6v6M18.5 9A7 7 0 0 0 6.2 5.5L4 7m2 8a7 7 0 0 0 12.3 3.5L20 17"/></svg></button><button id="notifyButton" class="icon-button" aria-label="Notifications"><svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg><b id="noticeCount" hidden>0</b></button></div></div>
+      <div class="header-main"><div class="header-greeting"><small id="eyebrow"><img class="header-arc-icon" src="icons/daylight-arc-icon.png" alt="">DAYLIGHT ARC</small><h1 id="greeting">Good morning.</h1><p id="dateLine"></p></div><div class="header-weather"><span id="weatherIcon" class="weather-icon">◌</span><div><strong id="weatherNow">Weather updating</strong><small id="weatherAdvice">Checking forecast…</small></div></div><div class="top-actions"><button id="syncButton" class="icon-button" aria-label="Sync status"><span id="syncDot"></span><svg viewBox="0 0 24 24"><path d="M20 7h-6V1M4 17h6v6M18.5 9A7 7 0 0 0 6.2 5.5L4 7m2 8a7 7 0 0 0 12.3 3.5L20 17"/></svg></button><button id="notifyButton" class="icon-button" aria-label="Notifications"><svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg><b id="noticeCount" hidden>0</b></button></div></div>
       <div class="mobile-week-carousel"><button type="button" id="previousHeaderDay" aria-label="Previous day">‹</button><div id="dateStrip" class="date-strip" aria-label="Select day"></div><button type="button" id="nextHeaderDay" aria-label="Next day">›</button></div>
     </header>
 
@@ -78,7 +85,7 @@
           <button class="glass more-button settings-entry" data-sheet="settings"><span>⚙</span><div><strong>Settings</strong><small>Family, appearance, accessibility, alerts, connections, and privacy</small></div></button>
         </div>
         <section class="glass panel github-update-card" aria-labelledby="githubUpdateTitle">
-          <div class="github-update-copy"><small>DAYLIGHT SOFTWARE</small><h2 id="githubUpdateTitle">Updates</h2><p id="githubUpdateStatus">Checking the installed build…</p><div class="commit-pills"><span>Installed <b id="installedCommit">—</b></span><span>Newest <b id="latestCommit">Checking…</b></span></div></div>
+          <div class="github-update-copy"><small>DAYLIGHT ARC SOFTWARE</small><h2 id="githubUpdateTitle">Updates</h2><p id="githubUpdateStatus">Checking the installed build…</p><div class="commit-pills"><span>Installed <b id="installedCommit">—</b></span><span>Newest <b id="latestCommit">Checking…</b></span></div></div>
           <button type="button" class="primary github-update-button" id="githubUpdateButton">Update from GitHub</button>
         </section>
         <section class="glass panel"><div class="section-title compact"><div><small>FAMILY PORTALS</small><h2>School and health</h2></div></div><div id="mobilePortals" class="portal-grid"><span>No portals connected</span></div></section>
@@ -92,7 +99,7 @@
       <button data-nav="tasks"><svg viewBox="0 0 24 24"><path d="m4 7 2 2 4-4M12 7h8M4 15l2 2 4-4m2 2h8"/></svg><span>Lists</span></button>
       <button data-nav="more"><svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></svg><span>More</span></button>
     </nav>
-    <div class="floating-actions" aria-label="Daylight actions"><button class="floating-assistant" data-sheet="assistant" aria-label="Open Daylight Assistant">✦</button><button class="floating-add" data-quick="quick" aria-label="Quick add">+</button></div>
+    <div class="floating-actions" aria-label="Daylight Arc actions"><button class="floating-assistant" data-sheet="assistant" aria-label="Open Daylight Assistant"><img src="icons/daylight-assistant.png" alt=""></button><button class="floating-add" data-quick="quick" aria-label="Quick add">+</button></div>
   </div>
 
   <div id="sheetBackdrop" class="sheet-backdrop" hidden></div>
