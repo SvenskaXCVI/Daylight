@@ -366,8 +366,22 @@ body.mobile-reduce-motion .sheet,body.mobile-reduce-motion .sheet-backdrop,body.
 @keyframes mobileForgeArrive{from{opacity:0;transform:translate3d(0,8px,0) scale(.985)}to{opacity:1;transform:none}}
 .header-greeting #eyebrow{display:flex;align-items:center;gap:7px;min-width:0}
 .header-arc-icon{width:19px;height:19px;flex:0 0 19px;border-radius:5px;object-fit:cover;box-shadow:0 3px 9px rgba(26,181,153,.16)}
-.floating-assistant{overflow:hidden;padding:0;background:rgba(8,16,27,.9)}
-.floating-assistant>img{display:block;width:100%;height:100%;object-fit:cover;border-radius:inherit}
+.floating-assistant{
+  overflow:hidden;
+  padding:0;
+  background:var(--accent);
+  color:#101827;
+  border:0;
+  box-shadow:0 12px 28px color-mix(in srgb,var(--accent) 35%,transparent),inset 0 1px rgba(255,255,255,.28)
+}
+.floating-assistant>img{
+  display:block;
+  width:39px;
+  height:39px;
+  object-fit:contain;
+  transform:translate(-1px,1px);
+  filter:drop-shadow(0 2px 5px rgba(19,12,48,.28))
+}
 .assistant-popup-brand{display:flex;align-items:center;gap:11px;padding:10px;border:1px solid var(--line);border-radius:17px;background:rgba(7,15,22,.34)}
 .assistant-popup-brand>img{width:42px;height:42px;flex:0 0 42px;border-radius:50%;object-fit:cover;box-shadow:0 6px 18px rgba(142,93,248,.22)}
 .assistant-popup-brand strong,.assistant-popup-brand small{display:block}.assistant-popup-brand strong{font-family:"SF Pro Display","Avenir Next","Segoe UI Variable Display",system-ui,sans-serif;font-size:13px;letter-spacing:-.025em}.assistant-popup-brand strong b{font:inherit;font-weight:780;color:#b274f2;background:linear-gradient(90deg,#9a85ff,#d26be9);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent}.assistant-popup-brand small{margin-top:2px;color:var(--muted);font-size:9px;letter-spacing:.04em}
