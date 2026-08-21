@@ -376,12 +376,30 @@ body.mobile-reduce-motion .sheet,body.mobile-reduce-motion .sheet-backdrop,body.
 }
 .floating-assistant>img{
   display:block;
-  width:39px;
-  height:39px;
+  width:38px;
+  height:38px;
   object-fit:contain;
-  transform:translate(-1px,1px);
-  filter:drop-shadow(0 2px 5px rgba(19,12,48,.28))
+  transform:none;
+  filter:drop-shadow(0 2px 5px rgba(19,12,48,.2))
 }
+.floating-actions .floating-add{
+  position:relative;
+  font-size:0;
+  line-height:0
+}
+.floating-actions .floating-add:before,
+.floating-actions .floating-add:after{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:22px;
+  height:3px;
+  border-radius:999px;
+  background:#101827;
+  transform:translate(-50%,-50%)
+}
+.floating-actions .floating-add:after{transform:translate(-50%,-50%) rotate(90deg)}
 .assistant-popup-brand{display:flex;align-items:center;gap:11px;padding:10px;border:1px solid var(--line);border-radius:17px;background:rgba(7,15,22,.34)}
 .assistant-popup-brand>img{width:42px;height:42px;flex:0 0 42px;border-radius:50%;object-fit:cover;box-shadow:0 6px 18px rgba(142,93,248,.22)}
 .assistant-popup-brand strong,.assistant-popup-brand small{display:block}.assistant-popup-brand strong{font-family:"SF Pro Display","Avenir Next","Segoe UI Variable Display",system-ui,sans-serif;font-size:13px;letter-spacing:-.025em}.assistant-popup-brand strong b{font:inherit;font-weight:780;color:#b274f2;background:linear-gradient(90deg,#9a85ff,#d26be9);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent}.assistant-popup-brand small{margin-top:2px;color:var(--muted);font-size:9px;letter-spacing:.04em}
