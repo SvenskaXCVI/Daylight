@@ -1,10 +1,12 @@
-const CACHE='daylight-mobile-v54-fixed-calendar-scrollable-day';
-const CORE=['./','./index.html','./styles.css','./matte.css','./graphite-focus.css','./app.js','./seed-data.js','./manifest.webmanifest','./daylight-forge-splash.js','./daylight-forge-primary.png','./daylight-forge-wordmark-clean.png','./icons/daylight-arc-icon.png','./icons/daylight-assistant-action-black.png'];
+const CACHE='daylight-mobile-v55-background-school-reminders';
+const CORE=['./','./index.html','./styles.css','./matte.css','./graphite-focus.css','./app.js','./school-reminders.mjs','./seed-data.js','./manifest.webmanifest','./daylight-forge-splash.js','./daylight-forge-primary.png','./daylight-forge-wordmark-clean.png','./icons/daylight-arc-icon.png','./icons/daylight-assistant-action-black.png'];
 self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(CORE)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key!==CACHE).map(key=>caches.delete(key)))).then(()=>self.clients.claim())));
 self.addEventListener('fetch',event=>{if(event.request.method!=='GET')return;event.respondWith(fetch(event.request).then(response=>{const copy=response.clone();caches.open(CACHE).then(cache=>cache.put(event.request,copy));return response;}).catch(()=>caches.match(event.request).then(match=>match||caches.match('./index.html'))));});
 self.addEventListener('message',event=>{if(event.data?.type!=='REFRESH_DAYLIGHT_APP')return;event.waitUntil(caches.open(CACHE).then(cache=>Promise.all(CORE.map(async path=>{const request=new Request(new URL(path,self.registration.scope),{cache:'reload'}),response=await fetch(request);if(!response.ok)throw new Error(`Could not update ${path}`);await cache.put(request,response.clone())}))).then(()=>self.clients.matchAll({type:'window',includeUncontrolled:true})).then(clients=>clients.forEach(client=>client.postMessage({type:'DAYLIGHT_UPDATE_READY'}))))});
-self.addEventListener('notificationclick',event=>{event.notification.close();event.waitUntil(self.clients.matchAll({type:'window',includeUncontrolled:true}).then(clients=>clients[0]?.focus()||self.clients.openWindow('./')));});
+self.addEventListener('notificationclick',event=>{event.notification.close();event.waitUntil((async()=>{const windows=await self.clients.matchAll({type:'window',includeUncontrolled:true}),client=windows.find(c=>c.url.startsWith(self.registration.scope));if(client){await client.focus();client.postMessage({type:'DAYLIGHT_SCHOOL_REMINDER_OPEN'});}else await self.clients.openWindow(new URL('./?school-reminder=1',self.registration.scope).href);})());});
 
 
 
+
+self.addEventListener('push',event=>{let data={};try{data=event.data?.json()||{};}catch{}event.waitUntil(self.registration.showNotification(String(data.title||'Daylight Arc school reminder'),{body:String(data.body||''),tag:String(data.tag||'daylight-school'),icon:new URL('./icons/daylight-arc-icon.png',self.registration.scope).href,badge:new URL('./icons/daylight-arc-icon.png',self.registration.scope).href,data:{date:data.date,kind:data.kind},renotify:false}));});

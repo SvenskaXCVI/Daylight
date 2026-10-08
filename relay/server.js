@@ -1,4 +1,5 @@
 import http from 'node:http';
+import {createPushService} from './push-service.js';
 import {WebSocketServer,WebSocket} from 'ws';
 
 const port=Number(process.env.PORT||8080);
@@ -33,9 +34,10 @@ async function parseSchedule(req,res){
     if(!outputText)throw Error('No schedule was returned');return json(res,200,{schedule:JSON.parse(outputText)});
   }catch(error){return json(res,error.message==='too-large'?413:500,{error:error.message==='too-large'?'Images are too large.':String(error.message||'Schedule import failed.')})}
 }
-const server=http.createServer(async(req,res)=>{if(req.method==='OPTIONS')return json(res,204,{});if(req.method==='POST'&&req.url==='/api/parse-schedule')return parseSchedule(req,res);return json(res,200,{service:'Daylight Sync Relay',status:'online',scheduleImport:Boolean(process.env.OPENAI_API_KEY)});});
+const server=http.createServer(async(req,res)=>{if(await pushService.handle(req,res))return;if(req.method==='OPTIONS')return json(res,204,{});if(req.method==='POST'&&req.url==='/api/parse-schedule')return parseSchedule(req,res);return json(res,200,{service:'Daylight Sync Relay',status:'online',scheduleImport:Boolean(process.env.OPENAI_API_KEY),backgroundReminders:pushService.available});});
 const wss=new WebSocketServer({server});
 const rooms=new Map();
+const pushService=createPushService({roomExists:roomId=>rooms.has(roomId),readJson});
 
 function room(code){if(!rooms.has(code))rooms.set(code,new Set());return rooms.get(code)}
 function send(peer,data){if(peer.readyState===WebSocket.OPEN)peer.send(JSON.stringify(data))}

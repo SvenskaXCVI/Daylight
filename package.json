@@ -10,7 +10,7 @@
     "ios:open": "cap open ios",
     "ios:assets": "capacitor-assets generate --ios",
     "release:check": "node scripts/app-store-check.mjs",
-    "test": "node tests/production-safety.test.mjs && npm run build:web && npm run release:check"
+    "test": "node tests/production-safety.test.mjs && npm --prefix relay ci --ignore-scripts && node tests/school-reminders.test.mjs && npm run build:web && npm run release:check"
   },
   "dependencies": {
     "@capacitor/core": "6.2.1",

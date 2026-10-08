@@ -8,3 +8,6 @@ ios/App/App/public/
 ios/App/DerivedData/
 ios/App/*.xcworkspace/xcuserdata/
 ios/App/*.xcodeproj/xcuserdata/
+
+relay/private-push-data/
+relay/*.private.json
