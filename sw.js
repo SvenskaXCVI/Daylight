@@ -1,4 +1,4 @@
-const CACHE='daylight-mobile-v56-picked-up-control';
+const CACHE='daylight-mobile-v57-picked-up-header';
 const CORE=['./','./index.html','./styles.css','./matte.css','./graphite-focus.css','./app.js','./school-reminders.mjs','./seed-data.js','./manifest.webmanifest','./daylight-forge-splash.js','./daylight-forge-primary.png','./daylight-forge-wordmark-clean.png','./icons/daylight-arc-icon.png','./icons/daylight-assistant-action-black.png'];
 self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(CORE)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key!==CACHE).map(key=>caches.delete(key)))).then(()=>self.clients.claim())));
