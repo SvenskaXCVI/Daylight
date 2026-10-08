@@ -113,3 +113,8 @@ body:is([data-appearance-style="matte"],[data-appearance-style="glass"]):is([dat
 @keyframes arcRefreshDot{0%,60%,100%{transform:translateY(0);opacity:.5}30%{transform:translateY(-6px);opacity:1}}
 @media(prefers-reduced-motion:reduce){.refresh-dots i{animation:none;opacity:1}}
 body.mobile-reduce-motion .refresh-dots i{animation:none;opacity:1}
+
+#selectedDayPanel{display:none!important}
+#sheet.calendar-day-page{inset:0!important;width:100%!important;height:100dvh!important;max-height:100dvh!important;border-radius:0!important;padding:calc(18px + env(safe-area-inset-top)) 18px calc(24px + env(safe-area-inset-bottom))!important;border:0!important}
+#sheet.calendar-day-page #sheetTitle{font-size:22px;line-height:1.3}#sheet.calendar-day-page .sheet-handle{display:none}#sheet.calendar-day-page .calendar-day-events{margin:12px 0 24px}#sheet.calendar-day-page #closeSheet{flex-shrink:0}
+.school-group-details{white-space:pre-line;line-height:1.5;margin-top:6px!important}
