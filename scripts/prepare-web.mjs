@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const output = resolve(root, "www");
-const files = ["index.html", "app.js", "styles.css", "seed-data.js", "manifest.webmanifest", "sw.js"];
+const files = ["index.html", "app.js", "styles.css", "matte.css", "graphite-focus.css", "seed-data.js", "manifest.webmanifest", "sw.js", "daylight-forge-splash.js", "daylight-forge-primary.png", "daylight-forge-wordmark-clean.png"];
 
 await rm(output, { recursive: true, force: true });
 await mkdir(output, { recursive: true });

@@ -1,5 +1,5 @@
-const CACHE='daylight-mobile-v41';
-const CORE=['./','./index.html','./styles.css','./app.js','./seed-data.js','./manifest.webmanifest','./icons/daylight-arc-icon.png','./icons/daylight-assistant-action-black.png'];
+const CACHE='daylight-mobile-v48-graphite-mobile-dock';
+const CORE=['./','./index.html','./styles.css','./matte.css','./graphite-focus.css','./app.js','./seed-data.js','./manifest.webmanifest','./daylight-forge-splash.js','./daylight-forge-primary.png','./daylight-forge-wordmark-clean.png','./icons/daylight-arc-icon.png','./icons/daylight-assistant-action-black.png'];
 self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(CORE)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key!==CACHE).map(key=>caches.delete(key)))).then(()=>self.clients.claim())));
 self.addEventListener('fetch',event=>{if(event.request.method!=='GET')return;event.respondWith(fetch(event.request).then(response=>{const copy=response.clone();caches.open(CACHE).then(cache=>cache.put(event.request,copy));return response;}).catch(()=>caches.match(event.request).then(match=>match||caches.match('./index.html'))));});

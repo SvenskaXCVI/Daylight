@@ -1,0 +1,44 @@
+/* Graphite Focus: solid materials. Brand artwork and semantic glow rules stay intact. */
+body[data-appearance-style="matte"][data-appearance-style="matte"][data-appearance-style="matte"][data-appearance-style="matte"] {
+  --bg:#171b21;--surface:#222831;--surface-strong:#292f39;
+  --ink:#edf1f7;--text:#edf1f7;--muted:#a9b5c5;--line:#39424f;
+  --glass-rgb:34 40 49;--glass-border:#39424f;--glass-shadow:none;
+  --glass-opacity:1!important;--glass-alpha:1!important;--glass-safe-opacity:1!important;
+  --sidebar-glass-opacity:1!important;--card-glass-opacity:1!important;
+  --weather-glass-opacity:1!important;--modal-glass-opacity:1!important;
+  --glass-blur:0px!important;--blur:0px;--radius:8px;--radius-card:8px;--radius-control:6px;
+  background:#171b21!important;color:var(--ink);color-scheme:dark;
+}
+body[data-appearance-style="matte"][data-appearance-style="matte"][data-appearance-style="matte"][data-appearance-style="matte"][data-theme="light"],body[data-appearance-style="matte"][data-appearance-style="matte"][data-appearance-style="matte"][data-appearance-style="matte"].light {
+  --bg:#eef1f5;--surface:#fff;--surface-strong:#e9edf2;--ink:#202936;--text:#202936;
+  --muted:#596779;--line:#d4dae3;--glass-rgb:255 255 255;--glass-border:#d4dae3;
+  background:#eef1f5!important;color-scheme:light;
+}
+body[data-appearance-style="matte"][data-appearance-style="matte"][data-appearance-style="matte"][data-appearance-style="matte"] *,body[data-appearance-style="matte"][data-appearance-style="matte"][data-appearance-style="matte"][data-appearance-style="matte"] *::before,body[data-appearance-style="matte"][data-appearance-style="matte"][data-appearance-style="matte"][data-appearance-style="matte"] *::after {
+  backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
+}
+body[data-appearance-style="matte"][data-appearance-style="matte"][data-appearance-style="matte"][data-appearance-style="matte"] :is(input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]),select,textarea) {
+  background:var(--surface-strong)!important;color:var(--ink)!important;border-color:var(--line)!important;border-radius:6px!important;
+}
+body[data-appearance-style="matte"][data-appearance-style="matte"][data-appearance-style="matte"][data-appearance-style="matte"] :is(button,input,select,textarea):focus-visible {
+  outline:2px solid var(--accent)!important;outline-offset:3px;
+}
+
+body[data-appearance-style="matte"][data-appearance-style="matte"][data-appearance-style="matte"][data-appearance-style="matte"] .backdrop{display:none!important}
+body[data-appearance-style="matte"][data-appearance-style="matte"][data-appearance-style="matte"][data-appearance-style="matte"] .app-shell{background-color:var(--bg)!important;
+  background-image:repeating-linear-gradient(115deg,transparent 0px,transparent 3px,rgba(128,145,169,.025) 3px,rgba(128,145,169,.025) 4px),radial-gradient(rgba(128,145,169,.065) .6px,transparent .8px)!important;
+  background-size:8px 8px,5px 5px!important;}
+body[data-appearance-style="matte"][data-appearance-style="matte"][data-appearance-style="matte"][data-appearance-style="matte"] :is(.glass,.panel,.student-card,.sheet,.more-button,.connection-card,.calendar-panel,.list-panel,.onboarding-card){background:var(--surface)!important;background-image:none!important;border-color:var(--line)!important;border-radius:8px!important;box-shadow:none!important}
+body[data-appearance-style="matte"][data-appearance-style="matte"][data-appearance-style="matte"][data-appearance-style="matte"] :is(.topbar,.bottom-nav){background:#1c2129!important;background-image:none!important;border-color:var(--line)!important;border-radius:10px!important;box-shadow:none!important}
+body[data-appearance-style="matte"][data-appearance-style="matte"][data-appearance-style="matte"][data-appearance-style="matte"].light :is(.topbar,.bottom-nav){background:#e9edf2!important}
+body[data-appearance-style="matte"][data-appearance-style="matte"][data-appearance-style="matte"][data-appearance-style="matte"] :is(.icon-button,.more-button,.route-stop,.toggle-row,.primary,.connection-card,.date-strip button,.calendar-day,.event-card,.task-item,.grocery-item){border-radius:6px!important}
+body[data-appearance-style="matte"][data-appearance-style="matte"][data-appearance-style="matte"][data-appearance-style="matte"] .header-weather{background:var(--surface-strong)!important;border-radius:6px!important}
+body[data-appearance-style="matte"][data-appearance-style="matte"][data-appearance-style="matte"][data-appearance-style="matte"] .sheet{border-radius:12px 12px 0 0!important}
+body[data-appearance-style="matte"][data-appearance-style="matte"][data-appearance-style="matte"][data-appearance-style="matte"] .sheet-backdrop{background:rgba(8,11,16,.68)!important}
+body[data-appearance-style="matte"][data-appearance-style="matte"][data-appearance-style="matte"][data-appearance-style="matte"] .liquid-glass-option{display:none!important}
+body[data-appearance-style="matte"][data-appearance-style="matte"][data-appearance-style="matte"][data-appearance-style="matte"] :is(.floating-add,.floating-assistant){border-radius:12px!important}
+body[data-appearance-style="matte"][data-appearance-style="matte"][data-appearance-style="matte"][data-appearance-style="matte"] .student-summary{background:var(--surface)!important}
+/* Keep the colored student edges, date selection, gold priorities and both floating action glows. */
+
+body[data-appearance-style="matte"][data-appearance-style="matte"][data-appearance-style="matte"][data-appearance-style="matte"].mobile-high-contrast{--muted:color-mix(in srgb,var(--ink) 82%,var(--surface));--line:color-mix(in srgb,var(--ink) 55%,var(--surface));--glass-border:var(--line)}
+body[data-appearance-style="matte"][data-appearance-style="matte"][data-appearance-style="matte"][data-appearance-style="matte"] :is(.appearance-section,.notification-section,.privacy-section,.accessibility-section){background:var(--surface-strong)!important;background-image:none!important;border-radius:8px!important;border-color:var(--line)!important}
