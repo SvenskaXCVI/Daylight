@@ -136,3 +136,4 @@ body.mobile-reduce-motion .refresh-dots i{animation:none;opacity:1}
 .calendar-child-label i{width:7px;height:7px;flex:0 0 7px;border-radius:50%;background:var(--child-color)}
 .calendar-child-row ul{margin:7px 0 0;padding:0 0 0 14px;color:var(--muted);font-size:12px;line-height:1.6;letter-spacing:0;font-weight:400}
 .calendar-child-row li+li{margin-top:5px}
+.view[data-view="calendar"].active{overflow:visible!important;touch-action:pan-y!important}
